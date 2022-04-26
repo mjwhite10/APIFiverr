@@ -17,14 +17,33 @@ const { getidService } = require('./controllers/services/getidService');
 const { newService } = require('./controllers/services/newService');
 const { editService } = require('./controllers/services/editService');
 const { deleteService } = require('./controllers/services/deleteService');
-const { newServiceSolution } = require('./controllers/services/newServiceSolution');
-const { getServiceSolution } = require('./controllers/services/getServiceSolution');
-const { editServiceSolution } = require('./controllers/services/editServiceSolution');
-const { deleteServiceSolution } = require('./controllers/services/deleteServiceSolution');
-const { newServiceComment } = require('./controllers/services/newServiceComment');
-const { getServiceComments } = require('./controllers/services/getServiceComments');
-const { editServiceComment } = require('./controllers/services/editServiceComment');
-const { deleteServiceComment } = require('./controllers/services/deleteServiceComment');
+const {
+  newServiceSolution,
+} = require('./controllers/services/newServiceSolution');
+const {
+  getServiceSolution,
+} = require('./controllers/services/getServiceSolution');
+const {
+  editServiceSolution,
+} = require('./controllers/services/editServiceSolution');
+const {
+  deleteServiceSolution,
+} = require('./controllers/services/deleteServiceSolution');
+const {
+  newServiceComment,
+} = require('./controllers/services/newServiceComment');
+const {
+  getServiceComment,
+} = require('./controllers/services/getServiceComment');
+const {
+  listServiceComments,
+} = require('./controllers/services/listServiceComments');
+const {
+  editServiceComment,
+} = require('./controllers/services/editServiceComment');
+const {
+  deleteServiceComment,
+} = require('./controllers/services/deleteServiceComment');
 
 //Middlewares
 const app = express();
@@ -54,7 +73,8 @@ app.get('/services/:idService/solution', getServiceSolution);
 app.put('/services/:idService/solution', editServiceSolution);
 app.delete('/services/:idService/solution/:idSolution', deleteServiceSolution);
 app.post('/services/:idService/comments', newServiceComment);
-app.get('/services/:idService/comments', getServiceComments);
+app.get('/services/:idService/comments/:idComment', getServiceComment);
+app.get('/services/:idService/comments', listServiceComments);
 app.put('/services/:idService/comments/:idComment', editServiceComment);
 app.delete('/services/:idService/comments/:idComment', deleteServiceComment);
 

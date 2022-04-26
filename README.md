@@ -225,12 +225,22 @@ mediante un fichero digital.
 
   &nbsp;
 
+* `GET /services/:idService/comments/:idComment` - Devuelve un sólo comentario
+
+  * Cabecera auth: Si
+  * Path Params:
+    * idService
+    * idComment
+  * Retorna: mensaje con el comentario
+
+    &nbsp;
+
 * `GET /services/:idService/comments` - Obtener los comentarios de una necesidad/servicio existente
 
   * Cabecera auth: Si
   * Path Params:
     * idService
-  * Retorna: mensaje que indica que se añadió el comentario
+  * Retorna: mensaje con toda la info de los comentarios
 
   &nbsp;
 * `PUT /services/:idService/comments/:idComment` - Modificar un comentario

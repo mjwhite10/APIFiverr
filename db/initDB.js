@@ -1,4 +1,5 @@
 require('dotenv').config();
+const faker = require('faker/locale/es');
 const { getConnection } = require('./getDB');
 
 async function main() {
@@ -21,10 +22,10 @@ async function main() {
         CREATE TABLE users (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
             email VARCHAR(100) UNIQUE NOT NULL,
-            password VARCHAR(100) NOT NULL,
-            name VARCHAR(100) NOT NULL,
-            bio VARCHAR(300),
-            avatar VARCHAR(100),
+            password TINYTEXT NOT NULL,
+            name TINYTEXT NOT NULL,
+            bio VARCHAR(500),
+            avatar TINYTEXT,
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
             modifiedAt DATETIME 
         );`);
@@ -33,14 +34,14 @@ async function main() {
     await connection.query(`
         CREATE TABLE services_categories (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
-            descrption VARCHAR(100) NOT NULL
+            description VARCHAR(100) NOT NULL
         );`);
 
     console.log('Creando la tabla services_status');
     await connection.query(`
         CREATE TABLE services_status (
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
-            descrption VARCHAR(100) NOT NULL
+            description VARCHAR(100) NOT NULL
         );`);
 
     console.log('Creando la tabla services');
@@ -83,6 +84,58 @@ async function main() {
           FOREIGN KEY (idUser) REFERENCES users(id),
           FOREIGN KEY (idService) REFERENCES services(id)
     );`);
+
+    console.log('Creando usuarios...');
+    const users = 10;
+
+    for (let index = 0; index < users; index++) {
+      const email = faker.internet.email();
+      const password = faker.internet.password();
+      const name = faker.name.findName();
+      const bio = faker.lorem.sentences();
+
+      await connection.query(
+        `
+        INSERT INTO users (email,password,name,bio)
+        VALUES ("${email}",SHA2("${password}",512),"${name}","${bio}")`
+      );
+    }
+
+    console.log('Creando status para los servicios...');
+
+    const services_status = ['Unassigned', 'Assigned', 'Completed'];
+
+    for (let index = 0; index < services_status.length; index++) {
+      await connection.query(
+        `
+        INSERT INTO services_status (description)
+        VALUES (?)`,
+        [services_status[index]]
+      );
+    }
+
+    console.log('Creando las categorias de los servicios...');
+
+    const services_categories = [
+      'Graphic arts and design',
+      'Digital marketing',
+      'Writing and translation',
+      'Video and animation',
+      'Music and sound',
+      'Programming and technology',
+      'Business',
+      'Lifestyle',
+      'Trends',
+    ];
+
+    for (let index = 0; index < services_categories.length; index++) {
+      await connection.query(
+        `
+        INSERT INTO services_categories (description)
+        VALUES (?)`,
+        [services_categories[index]]
+      );
+    }
 
     console.log('Fin del script');
   } catch (error) {

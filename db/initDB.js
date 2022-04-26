@@ -8,10 +8,6 @@ async function main() {
 
     connection = await getConnection();
 
-    // console.log('Verificando que exista la BBDD');
-
-    // await connection.query('CREATE database fiverr;');
-
     console.log('Borrando las tablas existentes...');
     await connection.query('DROP TABLE IF EXISTS services_comments');
     await connection.query('DROP TABLE IF EXISTS services_solution');

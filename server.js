@@ -3,15 +3,16 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 
-//Users controllers
+//#region Users controllers
 const { deleteUser } = require('./controllers/users/deleteUser');
 const { editPassword } = require('./controllers/users/editPassword');
 const { editUser } = require('./controllers/users/editUser');
 const { getUser } = require('./controllers/users/getUser');
 const { loginUser } = require('./controllers/users/loginUser');
 const { newUser } = require('./controllers/users/newUser');
+//#endregion
 
-//Services controllers
+//#region Services controllers
 const { getServices } = require('./controllers/services/getServices');
 const { getidService } = require('./controllers/services/getidService');
 const { newService } = require('./controllers/services/newService');
@@ -44,25 +45,27 @@ const {
 const {
   deleteServiceComment,
 } = require('./controllers/services/deleteServiceComment');
+//#endregion
 
-//Middlewares
+//#region Middlewares
 const app = express();
 app.use(express.json());
 
-// Log de peticiones a la consola
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+//#endregion
 
-//Users endpoints
+//#region Users endpoints
 app.post('/users', newUser);
 app.get('/users/:idUser', getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', editUser);
 app.put('/users/:idUser/password', editPassword);
 app.delete('users/:idUser', deleteUser);
+//#endregion
 
-//Services endpoints
+//#region Services endpoints
 app.get('/services', getServices);
 app.get('/services/:idService', getidService);
 app.post('/services', newService);
@@ -77,8 +80,11 @@ app.get('/services/:idService/comments/:idComment', getServiceComment);
 app.get('/services/:idService/comments', listServiceComments);
 app.put('/services/:idService/comments/:idComment', editServiceComment);
 app.delete('/services/:idService/comments/:idComment', deleteServiceComment);
+//#endregion
 
-//Middleware para las peticiones 404
+//#region Middleware de errores
+
+//Not found Middleware
 app.use((req, res) => {
   console.warn('Error 404 Not Found');
   res.status(404).send({
@@ -87,7 +93,6 @@ app.use((req, res) => {
   });
 });
 
-//Middleware de errores
 app.use((error, req, res, next) => {
   console.error(error);
 
@@ -96,6 +101,7 @@ app.use((error, req, res, next) => {
     message: error.message,
   });
 });
+//#endregion
 
 //Lanzamos el server
 const port = process.env.PORT;

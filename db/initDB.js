@@ -24,7 +24,7 @@ async function main() {
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
             email VARCHAR(100) UNIQUE NOT NULL,
             password TINYTEXT NOT NULL,
-            name TINYTEXT,
+            name TINYTEXT NOT NULL,
             bio VARCHAR(500),
             avatar TINYTEXT,
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,

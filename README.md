@@ -74,7 +74,7 @@ mediante un fichero digital.
   
 &nbsp;
 
-* `POST /users/login` - Hacer login y retornar un token.
+* `POST /users/login` - Hacer login y retornar un token. ✅
 
   * Cabecera auth: No
   * Body:

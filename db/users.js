@@ -25,9 +25,9 @@ const createUser = async (email, password, name) => {
     //Crear el usuario
     const [newUser] = await connection.query(
       `
-    INSERT INTO users (email,password)
+    INSERT INTO users (email,password,name)
     VALUES (?,?,?)`,
-      [email, passwordHash]
+      [email, passwordHash, name]
     );
     //Devolvemos el id
     return newUser.insertId;
@@ -36,4 +36,30 @@ const createUser = async (email, password, name) => {
   }
 };
 
-module.exports = { createUser };
+const getUserByEmail = async (email) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [user] = await connection.query(
+      `
+    SELECT id,email,password 
+    FROM users
+    WHERE email = ?`,
+      [email]
+    );
+
+    if (user.length === 0) {
+      throw generateError(
+        `No hay ningún usuario registrado con el email ${email}`,
+        401
+      );
+    }
+    console.log(user);
+    return user[0];
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = { createUser, getUserByEmail };

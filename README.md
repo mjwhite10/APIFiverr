@@ -54,14 +54,14 @@ mediante un fichero digital.
 
 ### Endpoints de usuarios
 
-* `POST /users` - Registrar un usuario.
+* `POST /users` - Registrar un usuario. ✅
 
   * Cabecera auth: No
   * Body:
     * email
     * password
     * name
-  * Retorna: mensaje que indica que el usuario ha sido creado.
+  * Retorna: mensaje que indica que el usuario ha sido creado y el id.
 
 &nbsp;
 

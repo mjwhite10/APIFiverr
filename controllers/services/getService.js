@@ -1,4 +1,4 @@
-const getServices = async (req, res, next) => {
+const getService = async (req, res, next) => {
   try {
     res.send({
       status: 'error',
@@ -9,4 +9,4 @@ const getServices = async (req, res, next) => {
   }
 };
 
-module.exports = { getServices };
+module.exports = { getService };

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 const faker = require('faker/locale/es');
 const { getConnection } = require('./getDB');
 
@@ -90,14 +91,15 @@ async function main() {
 
     for (let index = 0; index < users; index++) {
       const email = faker.internet.email();
-      const password = faker.internet.password();
+      const password = await bcrypt.hash(faker.internet.password(), 8);
       const name = faker.name.findName();
       const bio = faker.lorem.sentences();
 
       await connection.query(
         `
         INSERT INTO users (email,password,name,bio)
-        VALUES ("${email}",SHA2("${password}",512),"${name}","${bio}")`
+        VALUES (?,?,?,?)`,
+        [email, password, name, bio]
       );
     }
 

@@ -1,24 +1,25 @@
-const jwt = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
 const { generateError } = require('../helpers');
 
 const isUser = (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
+    //Comprobamos que existe la cabecera authorization
     if (!authorization) {
-      throw generateError('Falta la cabecera de Authorization', 401);
+      throw generateError('Es necesario una cabecera de autorizacion', 401);
     }
 
-    //Comprobamos que el token es correcto
+    //Si existe la cabecera, verificamos el token
     let token;
     try {
-      token = jwt.verify(authorization, process.env.SECRET);
+      token = jsonwebtoken.verify(authorization, process.env.SECRET);
     } catch {
-      throw generateError('Token incorrecto', 401);
+      throw generateError('El token no es válido', 401);
     }
-    //Metemos la info del token en la request para usarla en el controlador
+    //Metemeos la info del tojen en la request para que pueda usarla cualquier controlador
     req.userId = token.id;
-    //Saltamos al controlador
+    //Saltamos al siguiente middleware
     next();
   } catch (error) {
     next(error);

@@ -13,8 +13,8 @@ const { newUser } = require('./controllers/users/newUser');
 //#endregion
 
 //#region Services controllers
-const { getServices } = require('./controllers/services/getServices');
-const { getidService } = require('./controllers/services/getidService');
+const { listServices } = require('./controllers/services/listServices');
+const { getService } = require('./controllers/services/getService');
 const { newService } = require('./controllers/services/newService');
 const { editService } = require('./controllers/services/editService');
 const { deleteService } = require('./controllers/services/deleteService');
@@ -48,6 +48,7 @@ const {
 //#endregion
 
 //#region Middlewares
+const { isUser } = require('./middlewares/isUser');
 const app = express();
 app.use(express.json());
 
@@ -66,20 +67,25 @@ app.delete('users/:idUser', deleteUser);
 //#endregion
 
 //#region Services endpoints
-app.get('/services', getServices);
-app.get('/services/:idService', getidService);
+app.get('/services', listServices);
+app.get('/services/:idService', getService);
 app.post('/services', newService);
 app.put('/services/:idService', editService);
 app.delete('/services/:idService', deleteService);
 app.post('/services/:idService/solution', newServiceSolution);
 app.get('/services/:idService/solution', getServiceSolution);
 app.put('/services/:idService/solution', editServiceSolution);
+//Only admin
 app.delete('/services/:idService/solution/:idSolution', deleteServiceSolution);
 app.post('/services/:idService/comments', newServiceComment);
 app.get('/services/:idService/comments/:idComment', getServiceComment);
 app.get('/services/:idService/comments', listServiceComments);
 app.put('/services/:idService/comments/:idComment', editServiceComment);
-app.delete('/services/:idService/comments/:idComment', deleteServiceComment);
+app.delete(
+  '/services/:idService/comments/:idComment',
+
+  deleteServiceComment
+);
 //#endregion
 
 //#region Middleware de errores

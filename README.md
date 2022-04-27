@@ -11,7 +11,7 @@ mediante un fichero digital.
   * id
   * email \*
   * password \*
-  * name \*
+  * name
   * bio
   * avatar
   * createdAt

@@ -17,9 +17,6 @@ const newUserSchema = Joi.object().keys({
         400
       )
     ),
-  name: Joi.string()
-    .required()
-    .error(generateError('El campo nombre debe existir', 400)),
 });
 
 module.exports = { newUserSchema };

@@ -92,7 +92,11 @@ const editUserById = async (email, name, bio, avatar, id) => {
     WHERE id = ?`,
       [email, name, bio, avatar, id]
     );
-
+  }   finally{
+      if (connection) connection.release()
+    }
+    
+  }
 const deleteUser = async (idUser) => {
   let connection;
 
@@ -114,4 +118,3 @@ const deleteUser = async (idUser) => {
 
 
 module.exports = { createUser, getUserByEmail, getUserById, editUserById,deleteUser };
-

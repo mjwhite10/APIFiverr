@@ -1,14 +1,12 @@
-const bcrypt = require('bcrypt');
-
+const { encryptPassword } = require('../helpers');
 const { getConnection } = require('./getDB');
 
 const createUser = async (email, password, name) => {
   let connection;
   try {
     connection = await getConnection();
-    //Encriptamos la password
-    const passwordHash = await bcrypt.hash(password, 8);
 
+    const passwordHash = encryptPassword(password);
     //Crear el usuario
     const [newUser] = await connection.query(
       `
@@ -96,10 +94,28 @@ const deleteUserById = async (id) => {
   }
 };
 
+const editUserPasswordById = async (id, password) => {
+  let connection;
+
+  try {
+    const passwordHash = encryptPassword(password);
+
+    await connection.query(
+      `
+    UPDATE users
+    SET password = ?, modifiedAt = UTC_TIMESTAMP
+    WHERE id = ?`,
+      [passwordHash, id]
+    );
+  } finally {
+    if (connection) connection.release();
+  }
+};
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
   editUserById,
   deleteUserById,
+  editUserPasswordById,
 };

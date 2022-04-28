@@ -4,46 +4,31 @@ const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 //Users controllers
-const { deleteUser } = require('./controllers/users/deleteUser');
-const { editPassword } = require('./controllers/users/editPassword');
-const { editUser } = require('./controllers/users/editUser');
-const { getUser } = require('./controllers/users/getUser');
-const { loginUser } = require('./controllers/users/loginUser');
-const { newUser } = require('./controllers/users/newUser');
-
+const {
+  deleteUser,
+  editUserPassword,
+  editUser,
+  getUser,
+  loginUser,
+  newUser,
+} = require('./controllers/users');
 //Services controllers
-const { listServices } = require('./controllers/services/listServices');
-const { getService } = require('./controllers/services/getService');
-const { newService } = require('./controllers/services/newService');
-const { editService } = require('./controllers/services/editService');
-const { deleteService } = require('./controllers/services/deleteService');
 const {
+  listServices,
+  getService,
+  newService,
+  editService,
+  deleteService,
   newServiceSolution,
-} = require('./controllers/services/newServiceSolution');
-const {
   getServiceSolution,
-} = require('./controllers/services/getServiceSolution');
-const {
   editServiceSolution,
-} = require('./controllers/services/editServiceSolution');
-const {
   deleteServiceSolution,
-} = require('./controllers/services/deleteServiceSolution');
-const {
   newServiceComment,
-} = require('./controllers/services/newServiceComment');
-const {
   getServiceComment,
-} = require('./controllers/services/getServiceComment');
-const {
   listServiceComments,
-} = require('./controllers/services/listServiceComments');
-const {
   editServiceComment,
-} = require('./controllers/services/editServiceComment');
-const {
   deleteServiceComment,
-} = require('./controllers/services/deleteServiceComment');
+} = require('./controllers/services');
 
 //Middlewares
 const { isUser } = require('./middlewares/isUser');
@@ -61,7 +46,7 @@ app.post('/users', newUser);
 app.get('/users/:idUser', isUser, getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
-app.put('/users/:idUser/password', isUser, editPassword);
+app.put('/users/:idUser/password', isUser, editUserPassword);
 app.delete('/users/:idUser', isUser, deleteUser);
 
 //Services endpoints

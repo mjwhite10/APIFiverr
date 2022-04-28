@@ -26,6 +26,8 @@ const isUser = async (req, res, next) => {
         `No existe ningún usuario con el id ${token.id}`,
         404
       );
+
+    //Verificamos que el token
     //Metemeos la info del token en la request para que pueda usarla cualquier controlador
     req.auth = token;
 

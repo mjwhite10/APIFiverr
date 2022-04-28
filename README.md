@@ -12,6 +12,7 @@ mediante un fichero digital.
   * email \*
   * password \*
   * name
+  * role
   * bio
   * avatar
   * createdAt
@@ -84,7 +85,7 @@ mediante un fichero digital.
   
 &nbsp;
 
-* `PUT /users/:idUser` - Editar el nombre, email, bio y avatar de un usuario.
+* `PUT /users/:idUser` - Editar el nombre, email, bio y avatar de un usuario. ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -98,7 +99,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /users/:idUser/password` - Editar la contraseña de un usuario.
+* `PUT /users/:idUser/password` - Editar la contraseña de un usuario. ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -110,7 +111,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /users/:idUser` - Eliminar un usuario.
+* `DELETE /users/:idUser` - Eliminar un usuario. ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -161,7 +162,7 @@ mediante un fichero digital.
     * title
     * info
     * file
-    * idStatus
+    * status
   * Retorna: mensaje que indica que el servicio ha sido editado
 
 &nbsp;

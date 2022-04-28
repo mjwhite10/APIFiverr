@@ -1,6 +1,13 @@
 require('dotenv').config();
+const path = require('path');
+const fs = require('fs/promises');
 const bcrypt = require('bcrypt');
 const faker = require('faker/locale/es');
+const {
+  processAndSaveImage,
+  createPathIfNotExits,
+  getRandomAvatar,
+} = require('../helpers');
 const { getConnection } = require('./getDB');
 
 async function main() {
@@ -29,7 +36,8 @@ async function main() {
             bio VARCHAR(500),
             avatar TINYTEXT,
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt DATETIME
+            modifiedAt DATETIME,
+            lastAuthUpdate DATETIME NOT NULL
         );`);
 
     console.log('Creando la tabla services_categories');
@@ -67,7 +75,7 @@ async function main() {
     await connection.query(`
         CREATE TABLE services_solution (
            id INTEGER PRIMARY KEY AUTO_INCREMENT,
-           idService INTEGER NOT NULL,
+           idService INTEGER UNIQUE NOT NULL,
            idUser INTEGER NOT NULL,
            file VARCHAR (100),
            startedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -83,6 +91,8 @@ async function main() {
           content VARCHAR (280) NOT NULL,
           idUser INTEGER NOT NULL,
           idService INTEGER NOT NULL,
+          createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          modifiedAt DATETIME,
           FOREIGN KEY (idUser) REFERENCES users(id),
           FOREIGN KEY (idService) REFERENCES services(id)
     );`);
@@ -95,19 +105,28 @@ async function main() {
       8
     );
 
+    const uploadAvatarPath = path.join(__dirname, '../uploads/avatar');
+    await createPathIfNotExits(uploadAvatarPath);
+
+    const avatar1 = await getRandomAvatar();
+    const avatar2 = await getRandomAvatar();
+    const fileAdmin1 = await processAndSaveImage(avatar1, uploadAvatarPath);
+    const fileAdmin2 = await processAndSaveImage(avatar2, uploadAvatarPath);
+
+    //console.log(avatarFileName);
     await connection.query(
       `
-      INSERT INTO users (email,password,name,bio,role)
-      VALUES(?, ?, ?, ?,"admin")
+      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate)
+      VALUES('luna@hackaboss.com', ?, 'Luna', 'Lorem ipsum','admin',UTC_TIMESTAMP)
     `,
-      ['luna@hackaboss.com', adminPassHash, 'Luna', 'Lorem ipsum']
+      [adminPassHash]
     );
     await connection.query(
       `
-      INSERT INTO users (email,password,name,bio,role)
-      VALUES(?, ?, ?, ?,"admin")
+      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate)
+      VALUES('manu@hackaboss.com', ?, 'Manu', 'Lorem ipsum','admin',UTC_TIMESTAMP)
     `,
-      ['manu@hackaboss.com', adminPassHash, 'Manu', 'Lorem ipsum']
+      [adminPassHash]
     );
     const users = 10;
 
@@ -119,8 +138,8 @@ async function main() {
 
       await connection.query(
         `
-        INSERT INTO users (email,password,name,bio)
-        VALUES (?,?,?,?)`,
+        INSERT INTO users (email,password,name,bio,lastAuthUpdate)
+        VALUES (?,?,?,?,UTC_TIMESTAMP)`,
         [email, password, name, bio]
       );
     }
@@ -163,7 +182,7 @@ async function main() {
 
     console.log('Fin del script');
   } catch (error) {
-    console.log('Error inesperado al crear la BBDD', error.message);
+    console.log('Error inesperado al crear la BBDD', error);
   } finally {
     if (connection) connection.release();
   }

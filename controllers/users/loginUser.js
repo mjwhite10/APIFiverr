@@ -1,7 +1,6 @@
-const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
 const { getUserByEmail } = require('../../db/users');
-const { generateError } = require('../../helpers');
+const { generateError, checkPassword } = require('../../helpers');
 const { loginUserSchema } = require('../../validators/userValidators');
 
 const loginUser = async (req, res, next) => {
@@ -20,7 +19,7 @@ const loginUser = async (req, res, next) => {
         404
       );
     //Comparamos las passwords
-    const validPassword = await bcrypt.compare(password, user.password);
+    const validPassword = checkPassword(password, user.password);
 
     //Si la password no es valida...
     if (!validPassword) throw generateError('La contraseña no es válida', 401);

@@ -52,7 +52,7 @@ const editUser = async (req, res, next) => {
         await createPathIfNotExits(uploadPath);
         // Procesar y guardar imagen
         avatarFileName = await processAndSaveImage(
-          req.files.avatar,
+          req.files.avatar.data,
           uploadPath
         );
 

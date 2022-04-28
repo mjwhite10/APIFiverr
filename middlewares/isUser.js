@@ -19,8 +19,13 @@ const isUser = async (req, res, next) => {
     }
 
     //Comprobamos que el usuario existe
-    await getUserById(token.id);
+    const user = await getUserById(token.id);
 
+    if (!user)
+      throw generateError(
+        `No existe ningún usuario con el id ${token.id}`,
+        404
+      );
     //Metemeos la info del token en la request para que pueda usarla cualquier controlador
     req.auth = token;
 

@@ -62,11 +62,11 @@ app.use('/uploads', express.static('./uploads'));
 
 //#region Users endpoints
 app.post('/users', newUser);
-app.get('/users/:idUser', getUser);
+app.get('/users/:idUser', isUser, getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
 app.put('/users/:idUser/password', isUser, editPassword);
-app.delete('users/:idUser', isAdmin, deleteUser);
+app.delete('/users/:idUser', isUser, deleteUser);
 //#endregion
 
 //#region Services endpoints

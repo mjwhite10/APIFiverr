@@ -1,17 +1,27 @@
 const { getUserById } = require('../../db/users');
 const { generateError } = require('../../helpers');
+const { getUserSchema } = require('../../validators/userValidators');
 
 const getUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { idUser } = req.params;
 
-    const user = await getUserById(id);
+    //Validamos el id
+    await getUserSchema.validateAsync(req.params);
 
-    if (!user) {
-      throw generateError(`no existe ningún usuario con el id ${id}`, 404);
-    }
+    //Seleccionamos el usuario por id
+    const user = await getUserById(idUser);
 
-    const userInfo = { name: user.name, email: user.email, avatar: user.avatar, bio: user.bio}
+    //Si el usuario no existe...
+    if (!user)
+      throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
+
+    const userInfo = {
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      bio: user.bio,
+    };
 
     res.send({
       status: 'ok',

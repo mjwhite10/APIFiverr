@@ -31,6 +31,8 @@ const editUser = async (req, res, next) => {
 
     //Comprobamos que el usuario existe
     const user = await getUserById(idUser);
+    if (!user)
+      throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
 
     //Comprobamos que si cambió de email, el nuevo no exista en BBDD
     if (email !== user.email) {

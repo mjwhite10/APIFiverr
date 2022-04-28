@@ -3,16 +3,15 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
-//#region Users controllers
+//Users controllers
 const { deleteUser } = require('./controllers/users/deleteUser');
 const { editPassword } = require('./controllers/users/editPassword');
 const { editUser } = require('./controllers/users/editUser');
 const { getUser } = require('./controllers/users/getUser');
 const { loginUser } = require('./controllers/users/loginUser');
 const { newUser } = require('./controllers/users/newUser');
-//#endregion
 
-//#region Services controllers
+//Services controllers
 const { listServices } = require('./controllers/services/listServices');
 const { getService } = require('./controllers/services/getService');
 const { newService } = require('./controllers/services/newService');
@@ -45,11 +44,9 @@ const {
 const {
   deleteServiceComment,
 } = require('./controllers/services/deleteServiceComment');
-//#endregion
 
-//#region Middlewares
+//Middlewares
 const { isUser } = require('./middlewares/isUser');
-const { isAdmin } = require('./middlewares/isAdmin');
 const app = express();
 app.use(express.json());
 
@@ -58,18 +55,16 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(fileUpload());
 app.use('/uploads', express.static('./uploads'));
-//#endregion
 
-//#region Users endpoints
+//Users endpoints
 app.post('/users', newUser);
 app.get('/users/:idUser', isUser, getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
 app.put('/users/:idUser/password', isUser, editPassword);
 app.delete('/users/:idUser', isUser, deleteUser);
-//#endregion
 
-//#region Services endpoints
+//Services endpoints
 app.get('/services', listServices);
 app.get('/services/:idService', getService);
 app.post('/services', newService);
@@ -78,7 +73,6 @@ app.delete('/services/:idService', deleteService);
 app.post('/services/:idService/solution', newServiceSolution);
 app.get('/services/:idService/solution', getServiceSolution);
 app.put('/services/:idService/solution', editServiceSolution);
-//Only admin
 app.delete('/services/:idService/solution/:idSolution', deleteServiceSolution);
 app.post('/services/:idService/comments', newServiceComment);
 app.get('/services/:idService/comments/:idComment', getServiceComment);
@@ -89,9 +83,6 @@ app.delete(
 
   deleteServiceComment
 );
-//#endregion
-
-//#region Middleware de errores
 
 //Not found Middleware
 app.use((req, res) => {
@@ -102,6 +93,7 @@ app.use((req, res) => {
   });
 });
 
+//Middlewares de errores
 app.use((error, req, res, next) => {
   console.error(error);
 
@@ -110,7 +102,6 @@ app.use((error, req, res, next) => {
     message: error.message,
   });
 });
-//#endregion
 
 //Lanzamos el server
 const port = process.env.PORT;

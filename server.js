@@ -65,8 +65,8 @@ app.post('/users', newUser);
 app.get('/users/:idUser', getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
-app.put('/users/:idUser/password',isUser, editPassword);
-app.delete('users/:idUser', deleteUser);
+app.put('/users/:idUser/password', isUser, editPassword);
+app.delete('users/:idUser', isAdmin, deleteUser);
 //#endregion
 
 //#region Services endpoints

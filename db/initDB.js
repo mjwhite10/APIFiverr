@@ -24,11 +24,12 @@ async function main() {
             id INTEGER PRIMARY KEY AUTO_INCREMENT,
             email VARCHAR(100) UNIQUE NOT NULL,
             password TINYTEXT NOT NULL,
+            role ENUM("normal", "admin") DEFAULT "normal" NOT NULL,
             name TINYTEXT NOT NULL,
             bio VARCHAR(500),
             avatar TINYTEXT,
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt DATETIME 
+            modifiedAt DATETIME
         );`);
 
     console.log('Creando la tabla services_categories');
@@ -87,6 +88,27 @@ async function main() {
     );`);
 
     console.log('Creando usuarios...');
+
+    console.log('Creando usuarios administradores');
+    const adminPassHash = await bcrypt.hash(
+      process.env.DEFAULT_ADMIN_PASSWORD,
+      8
+    );
+
+    await connection.query(
+      `
+      INSERT INTO users (email,password,name,bio,role)
+      VALUES(?, ?, ?, ?,"admin")
+    `,
+      ['luna@hackaboss.com', adminPassHash, 'Luna', 'Lorem ipsum']
+    );
+    await connection.query(
+      `
+      INSERT INTO users (email,password,name,bio,role)
+      VALUES(?, ?, ?, ?,"admin")
+    `,
+      ['manu@hackaboss.com', adminPassHash, 'Manu', 'Lorem ipsum']
+    );
     const users = 10;
 
     for (let index = 0; index < users; index++) {

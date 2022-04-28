@@ -14,6 +14,11 @@ const loginUser = async (req, res, next) => {
     //Recojemos los datos del user con el email
     const user = await getUserByEmail(email);
 
+    if (!user)
+      throw generateError(
+        `No existe ningún usuario con el email ${email}`,
+        404
+      );
     //Comparamos las passwords
     const validPassword = await bcrypt.compare(password, user.password);
 
@@ -21,7 +26,7 @@ const loginUser = async (req, res, next) => {
     if (!validPassword) throw generateError('La contraseña no es válida', 401);
 
     //Creamos el payload del token
-    const payload = { id: user.id };
+    const payload = { id: user.id, role: user.role };
 
     //Firmamos el token
     const token = jsonwebtoken.sign(payload, process.env.SECRET, {

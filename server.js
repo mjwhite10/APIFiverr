@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const morgan = require('morgan');
-
+const fileUpload = require('express-fileupload');
 //#region Users controllers
 const { deleteUser } = require('./controllers/users/deleteUser');
 const { editPassword } = require('./controllers/users/editPassword');
@@ -49,21 +49,24 @@ const {
 
 //#region Middlewares
 const { isUser } = require('./middlewares/isUser');
+const { isAdmin } = require('./middlewares/isAdmin');
 const app = express();
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+app.use(fileUpload());
+app.use('/uploads', express.static('./uploads'));
 //#endregion
 
 //#region Users endpoints
 app.post('/users', newUser);
 app.get('/users/:idUser', getUser);
 app.post('/users/login', loginUser);
-app.put('/users/:idUser', editUser);
-app.put('/users/:idUser/password', editPassword);
-app.delete('users/:idUser', deleteUser);
+app.put('/users/:idUser', isUser, editUser);
+app.put('/users/:idUser/password', isUser, editPassword);
+app.delete('users/:idUser', isAdmin, deleteUser);
 //#endregion
 
 //#region Services endpoints

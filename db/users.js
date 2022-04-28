@@ -1,11 +1,12 @@
-const { generateError } = require('../helpers');
-const { getConnection } = require('./getDB');
 const bcrypt = require('bcrypt');
+
+const { getConnection } = require('./getDB');
 
 const createUser = async (email, password, name) => {
   let connection;
   try {
     connection = await getConnection();
+
 
     //Consultamos si existe un usuario con ese email
     const [user] = await connection.query(
@@ -28,13 +29,32 @@ const createUser = async (email, password, name) => {
     //Crear el usuario
     const [newUser] = await connection.query(
       `
-    INSERT INTO users (email,password)
+    INSERT INTO users (email,password,name)
     VALUES (?,?,?)`,
-      [email, passwordHash]
+      [email, passwordHash, name]
     );
 
     //Devolvemos el id
     return newUser.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const getUserByEmail = async (email) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [user] = await connection.query(
+      `
+    SELECT id,email,password,role
+    FROM users
+    WHERE email = ?`,
+      [email]
+    );
+
+    return user[0];
   } finally {
     if (connection) connection.release();
   }
@@ -59,6 +79,20 @@ const getUserById = async (id) => {
   }
 };
 
+
+const editUserById = async (email, name, bio, avatar, id) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    await connection.query(
+      `
+    UPDATE users
+    SET email = ?, name = ?, bio = ?, avatar = ?, modifiedAt = UTC_TIMESTAMP
+    WHERE id = ?`,
+      [email, name, bio, avatar, id]
+    );
+
 const deleteUser = async (idUser) => {
   let connection;
 
@@ -78,4 +112,6 @@ const deleteUser = async (idUser) => {
   }
 };
 
-module.exports = { createUser, getUserById, deleteUser };
+
+module.exports = { createUser, getUserByEmail, getUserById, editUserById,deleteUser };
+

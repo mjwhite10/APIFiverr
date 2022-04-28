@@ -74,7 +74,7 @@ mediante un fichero digital.
   
 &nbsp;
 
-* `POST /users/login` - Hacer login y retornar un token.
+* `POST /users/login` - Hacer login y retornar un token. ✅
 
   * Cabecera auth: No
   * Body:
@@ -152,7 +152,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /services/:idService` - Editar un servicio/necesidad 
+* `PUT /services/:idService` - Editar un servicio/necesidad
 
   * Cabecera auth: Si
   * Path Params:
@@ -166,7 +166,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /services/:idService` - Borrar un servicio/necesidad 
+* `DELETE /services/:idService` - Borrar un servicio/necesidad
 
   * Cabecera auth: Si
   * Path Params
@@ -204,7 +204,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /services/:idService/solution/:idSolution` - Eliminar una solución 
+* `DELETE /services/:idService/solution/:idSolution` - Eliminar una solución
 
   * Cabecera auth: Si
   * Path Params:

@@ -17,6 +17,65 @@ const newUserSchema = Joi.object().keys({
         400
       )
     ),
+  name: Joi.string()
+    .required()
+    .max(100)
+    .error(generateError('El campo nombre debe existir', 400)),
 });
 
-module.exports = { newUserSchema };
+const loginUserSchema = Joi.object().keys({
+  email: Joi.string()
+    .email()
+    .required()
+    .error(
+      generateError('El campo email debe existir y ser un email válido', 400)
+    ),
+  password: Joi.string()
+    .min(4)
+    .required()
+    .error(
+      generateError(
+        'El campo password debe existir y ser mayor de 4 caracteres',
+        400
+      )
+    ),
+});
+
+const editUserSchema = Joi.object().keys({
+  email: Joi.string()
+    .email()
+    .error(generateError('El campo email debe contener un email válido', 400)),
+  name: Joi.string()
+    .max(100)
+    .error(
+      generateError('El campo name no puede exceder los 100 caracteres', 400)
+    ),
+  bio: Joi.string()
+    .max(500)
+    .error(
+      generateError(
+        'El campo biografía no puede exceder los 500 caracteres',
+        400
+      )
+    ),
+});
+
+const getUserSchema = Joi.object().keys({
+  idUser: Joi.number()
+    .positive()
+    .required()
+    .greater(0)
+    .error(
+      generateError(
+        'El campo idUser debe exisitir y debe ser un entero mayor que 0 ',
+        400
+      )
+    ),
+});
+
+module.exports = {
+  newUserSchema,
+  loginUserSchema,
+  editUserSchema,
+  getUserSchema,
+};

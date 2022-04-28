@@ -56,7 +56,7 @@ const editUser = async (req, res, next) => {
           uploadPath
         );
 
-        //Si ya tenia guardado otro avatar lo eliminamis
+        //Si ya tenia guardado otro avatar lo eliminamos
         if (user.avatar) await deleteFile(path.join(uploadPath, user.avatar));
       } catch (error) {
         console.log(error.message);

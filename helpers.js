@@ -51,10 +51,10 @@ const processAndSaveImage = async (uploadedImage, imageUploadPath) => {
   return imageFileName;
 };
 
-//Función que elimina un archivo
+//Función que elimina un directorio de forma recursiva
 const deleteFile = async (path) => {
   try {
-    await fs.rm(path);
+    await fs.rm(path, { recursive: true });
   } catch (error) {
     console.log(error);
   }

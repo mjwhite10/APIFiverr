@@ -1,12 +1,13 @@
 require('dotenv').config();
 const path = require('path');
-const fs = require('fs/promises');
+//const fs = require('fs/promises');
 const bcrypt = require('bcrypt');
 const faker = require('faker/locale/es');
 const {
   processAndSaveImage,
   createPathIfNotExits,
   getRandomAvatar,
+  deleteFile,
 } = require('../helpers');
 const { getConnection } = require('./getDB');
 
@@ -35,7 +36,7 @@ async function main() {
             name TINYTEXT NOT NULL,
             bio VARCHAR(500),
             avatar TINYTEXT,
-            createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+            createdAt DATETIME NOT NULL,
             modifiedAt DATETIME,
             lastAuthUpdate DATETIME NOT NULL
         );`);
@@ -64,7 +65,7 @@ async function main() {
             file VARCHAR(100),
             idStatus INTEGER NOT NULL,
             idCategory INTEGER NOT NULL,
-            createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+            createdAt DATETIME NOT NULL,
             modifiedAt DATETIME,
             FOREIGN KEY (idUser) REFERENCES users(id),
             FOREIGN KEY (idStatus) REFERENCES services_status(id),
@@ -78,7 +79,7 @@ async function main() {
            idService INTEGER UNIQUE NOT NULL,
            idUser INTEGER NOT NULL,
            file VARCHAR (100),
-           startedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+           startedAt DATETIME NOT NULL,
            finishedAt DATETIME,
            FOREIGN KEY (idService) REFERENCES services(id),
            FOREIGN KEY (idUser) REFERENCES users(id)
@@ -91,7 +92,7 @@ async function main() {
           content VARCHAR (280) NOT NULL,
           idUser INTEGER NOT NULL,
           idService INTEGER NOT NULL,
-          createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          createdAt DATETIME NOT NULL,
           modifiedAt DATETIME,
           FOREIGN KEY (idUser) REFERENCES users(id),
           FOREIGN KEY (idService) REFERENCES services(id)
@@ -106,6 +107,7 @@ async function main() {
     );
 
     const uploadAvatarPath = path.join(__dirname, '../uploads/avatar');
+    await deleteFile(uploadAvatarPath);
     await createPathIfNotExits(uploadAvatarPath);
 
     const avatar1 = await getRandomAvatar();
@@ -113,20 +115,19 @@ async function main() {
     const fileAdmin1 = await processAndSaveImage(avatar1, uploadAvatarPath);
     const fileAdmin2 = await processAndSaveImage(avatar2, uploadAvatarPath);
 
-    //console.log(avatarFileName);
     await connection.query(
       `
-      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate)
-      VALUES('luna@hackaboss.com', ?, 'Luna', 'Lorem ipsum','admin',UTC_TIMESTAMP)
+      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate,avatar,modifiedAt,createdAt)
+      VALUES('luna@hackaboss.com', ?, 'Luna', 'Lorem ipsum','admin',UTC_TIMESTAMP,?,UTC_TIMESTAMP,UTC_TIMESTAMP)
     `,
-      [adminPassHash]
+      [adminPassHash, fileAdmin1]
     );
     await connection.query(
       `
-      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate)
-      VALUES('manu@hackaboss.com', ?, 'Manu', 'Lorem ipsum','admin',UTC_TIMESTAMP)
+      INSERT INTO users (email,password,name,bio,role,lastAuthUpdate,avatar,modifiedAt,createdAt)
+      VALUES('manu@hackaboss.com', ?, 'Manu', 'Lorem ipsum','admin',UTC_TIMESTAMP,?,UTC_TIMESTAMP,UTC_TIMESTAMP)
     `,
-      [adminPassHash]
+      [adminPassHash, fileAdmin2]
     );
     const users = 10;
 
@@ -135,12 +136,13 @@ async function main() {
       const password = await bcrypt.hash(faker.internet.password(), 8);
       const name = faker.name.findName();
       const bio = faker.lorem.sentences();
-
+      const avatar = await getRandomAvatar();
+      const file = await processAndSaveImage(avatar, uploadAvatarPath);
       await connection.query(
         `
-        INSERT INTO users (email,password,name,bio,lastAuthUpdate)
-        VALUES (?,?,?,?,UTC_TIMESTAMP)`,
-        [email, password, name, bio]
+        INSERT INTO users (email,password,name,bio,lastAuthUpdate,avatar,modifiedAt,createdAt)
+        VALUES (?,?,?,?,UTC_TIMESTAMP,?,UTC_TIMESTAMP,UTC_TIMESTAMP)`,
+        [email, password, name, bio, file]
       );
     }
 

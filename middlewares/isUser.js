@@ -27,7 +27,17 @@ const isUser = async (req, res, next) => {
         404
       );
 
-    //Verificamos que el token
+    //Verificamos que el token es posterior al cambio de password del usuario
+    const tokenCreatedAt = new Date(token.iat * 1000);
+    const userLastAuthUpdate = new Date(user.lastAuthUpdate);
+
+    if (tokenCreatedAt < userLastAuthUpdate) {
+      const error = new Error(
+        "El token ya no es válido. Haz login para conseguir otro"
+      );
+      error.httpStatus = 401;
+      throw error;
+    }
     //Metemeos la info del token en la request para que pueda usarla cualquier controlador
     req.auth = token;
 

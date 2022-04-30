@@ -44,4 +44,46 @@ const searchServices = async (search, orderBy, orderDirection) => {
   }
 };
 
-module.exports = { searchServices };
+const getServiceById = async (id) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [service] = await connection.query(
+      `
+          SELECT S.id
+          FROM services AS S
+          INNER JOIN services_categories AS SC
+          ON
+          INER JOIN services_status AS SS
+          ON
+          WHERE S.id = ?`,
+        [id]
+    );
+
+    return service[0];
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const createService = async (title, info, file, category ) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [result] = await connection.query(
+      `
+      INSERT INTO services (title, info, file, category)
+      VALUES(?,?,?,?)
+    `,
+      [title, info, file, category]
+    );
+
+    return newService.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = { searchServices, getServiceById, createService };

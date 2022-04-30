@@ -25,15 +25,15 @@ const searchServices = async (search, orderBy, orderDirection) => {
     } else {
       queryResults = await connection.query(
         `
-              SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
-              FROM services AS S
-              INNER JOIN services_categories AS SC
-              ON S.idCategory = SC.id
-              INNER JOIN services_status AS SS
-              ON S.idStatus = SS.id
-              INNER JOIN users AS U
-              ON S.idUser = U.id
-              ORDER BY ${orderBy} ${orderDirection}`
+          SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
+          FROM services AS S
+          INNER JOIN services_categories AS SC
+          ON S.idCategory = SC.id
+          INNER JOIN services_status AS SS
+          ON S.idStatus = SS.id
+          INNER JOIN users AS U
+          ON S.idUser = U.id
+          ORDER BY ${orderBy} ${orderDirection}`
       );
       //Extraemos los resultados en un array
       const [results] = queryResults;

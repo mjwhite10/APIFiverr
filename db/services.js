@@ -10,7 +10,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     if (search) {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
+          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -25,7 +25,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     } else {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
+          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -48,34 +48,33 @@ const getServiceById = async (id) => {
   let connection;
   try {
     connection = await getConnection();
-
     const [service] = await connection.query(
       `
-          SELECT S.id
-          FROM services AS S
-          INNER JOIN services_categories AS SC
-          ON
-          INER JOIN services_status AS SS
-          ON
-          WHERE S.id = ?`,
-        [id]
+        SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt        FROM services AS S
+        INNER JOIN services_categories AS SC
+        ON S.idCategory = SC.id
+        INNER JOIN services_status AS SS
+        ON S.idStatus = SS.id
+        INNER JOIN users AS U
+        ON S.idUser = U.id
+        WHERE S.id = ?`,
+      [id]
     );
-
     return service[0];
   } finally {
     if (connection) connection.release();
   }
 };
 
-const createService = async (title, info, file, category ) => {
+const createService = async (title, info, file, category) => {
   let connection;
   try {
     connection = await getConnection();
 
-    const [result] = await connection.query(
+    const [newService] = await connection.query(
       `
-      INSERT INTO services (title, info, file, category)
-      VALUES(?,?,?,?)
+      INSERT INTO services (title, info, file, idCategory, idStatus, createdAt)
+      VALUES(?,?,?,?,?,UTC_TIMESTAMP)
     `,
       [title, info, file, category]
     );
@@ -86,4 +85,22 @@ const createService = async (title, info, file, category ) => {
   }
 };
 
-module.exports = { searchServices, getServiceById, createService };
+const getIdCategory = async (category) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [idCategory] = await connection.query(
+      `SELECT id FROM services_categories WHERE description = ? 
+      `,
+      [category]
+    );
+
+    return idCategory[0];
+
+  } finally {
+    if (connection) connection.release();
+  }
+}
+
+module.exports = { searchServices, getServiceById, createService, getIdCategory };

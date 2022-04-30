@@ -1,11 +1,13 @@
-const { createService } = require('../../db/services');
+const { createService, getIdCategory } = require('../../db/services');
 
 const newService = async (req, res, next) => {
   try {
 
     const { title, info, file, category } = req.body;
 
-    const idService = await createService(title, info, file, category);
+    const idCategory = await getIdCategory (category);
+
+    const idService = await createService(title, info, file, idCategory);
 
     res.send({
       status: 'error',

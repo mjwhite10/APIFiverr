@@ -66,7 +66,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `GET /users/:idUser` - Obtener un usuario en concreto.
+* `GET /users/:idUser` - Obtener un usuario en concreto. ✅
 
   * Cabecera auth: Sí
   * Path Params:
@@ -168,7 +168,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /services/:idService` - Borrar un servicio/necesidad
+* `DELETE /services/:idService` - Borrar un servicio/necesidad ✅
 
   * Cabecera auth: Si
   * Path Params
@@ -177,16 +177,18 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services/:idService/solution` - Crea una solución a una necesidad/servicio
+* `POST /services/:idService/solution` - Crea una solución a una necesidad/servicio ✅
 
   * Cabecera auth: Si
   * Path Params:
     * idService
+  * Body Params:
+    * idUser
   * Retorna: mensaje que indica que se ha generado una solución
 
 &nbsp;
 
-* `GET /services/:idService/solution` - Obtener la solución asignada a una necesidad/servicio
+* `GET /services/:idService/solution` - Obtener la solución asignada a una necesidad/servicio ✅
 
   * Cabecera auth: Si
   * Path Params:

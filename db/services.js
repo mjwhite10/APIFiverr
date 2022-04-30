@@ -101,9 +101,37 @@ const deleteServiceById = async (idService) => {
   }
 };
 
+const createServiceSolution = async (idService, idUser) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(`START TRANSACTION`);
+    const [newSolution] = await connection.query(
+      `
+      INSERT INTO services_solution (idService,idUser,startedAt)
+      VALUES (?,?,UTC_TIMESTAMP)`,
+      [idService, idUser]
+    );
+    await connection.query(
+      `
+      UPDATE services
+      SET idStatus = 2
+      WHERE id = ?`,
+      [idService]
+    );
+    await connection.query(`COMMIT`);
+    return newSolution.insertId;
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
   getServiceById,
   deleteServiceById,
+  createServiceSolution,
 };

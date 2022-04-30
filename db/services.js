@@ -50,7 +50,8 @@ const getServiceById = async (id) => {
     connection = await getConnection();
     const [service] = await connection.query(
       `
-        SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt        FROM services AS S
+        SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+        FROM services AS S
         INNER JOIN services_categories AS SC
         ON S.idCategory = SC.id
         INNER JOIN services_status AS SS
@@ -66,6 +67,7 @@ const getServiceById = async (id) => {
   }
 };
 
+
 const createService = async (title, info, file, category) => {
   let connection;
   try {
@@ -80,10 +82,25 @@ const createService = async (title, info, file, category) => {
     );
 
     return newService.insertId;
+const getServiceSolutionByIdService = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    const [solution] = await connection.query(
+      `
+      SELECT SS.id, U.name, SS.file, SS.startedAt, SS.finishedAt
+      FROM services_solution AS SS
+      INNER JOIN users AS U
+      ON SS.idUser = U.id
+      WHERE SS.idService = ?`,
+      [idService]
+    );
+    return solution[0];
   } finally {
     if (connection) connection.release();
   }
 };
+
 
 const getIdCategory = async (category) => {
   let connection;
@@ -103,4 +120,54 @@ const getIdCategory = async (category) => {
   }
 }
 
-module.exports = { searchServices, getServiceById, createService, getIdCategory };
+const deleteServiceById = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(
+      `
+      DELETE FROM services
+      WHERE id = ?`,
+      [idService]
+    );
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const createServiceSolution = async (idService, idUser) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(`START TRANSACTION`);
+    const [newSolution] = await connection.query(
+      `
+      INSERT INTO services_solution (idService,idUser,startedAt)
+      VALUES (?,?,UTC_TIMESTAMP)`,
+      [idService, idUser]
+    );
+    await connection.query(
+      `
+      UPDATE services
+      SET idStatus = 2
+      WHERE id = ?`,
+      [idService]
+    );
+    await connection.query(`COMMIT`);
+    return newSolution.insertId;
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+module.exports = {
+  searchServices,
+  getServiceSolutionByIdService,
+  getServiceById,
+  deleteServiceById,
+  createServiceSolution,
+  createService, 
+  getIdCategory
+};

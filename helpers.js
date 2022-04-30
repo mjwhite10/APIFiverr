@@ -14,7 +14,6 @@ const generateError = (message, status) => {
 const checkPassword = async (password, encryptedPassword) => {
   //Comparamos las passwords
   const validPassword = await bcrypt.compare(password, encryptedPassword);
-
   return validPassword;
 };
 
@@ -51,6 +50,16 @@ const processAndSaveImage = async (uploadedImage, imageUploadPath) => {
   return imageFileName;
 };
 
+//Función que copia un archivo en la direción especificada
+const processAndSaveFile = async (uploadedFile, fileUploadPath) => {
+  //Generamos el nombre del archivo=>uid+extension
+  const fileName = `${uuid.v4()}${path.extname(uploadedFile)}`;
+  //Copiamos el contenido del archivo y lo renombramos
+  await fs.copyFile(uploadedFile, path.join(fileUploadPath, fileName));
+
+  return fileName;
+};
+
 //Función que elimina un directorio de forma recursiva
 const deleteFile = async (path) => {
   try {
@@ -60,14 +69,29 @@ const deleteFile = async (path) => {
   }
 };
 
-//Const función que devuelve un avatar random
+//Función que devuelve un avatar random
 const getRandomAvatar = async () => {
   let avatarImages = await fs.readdir(
-    path.join(__dirname, '/avatares_testing')
+    path.join(__dirname, '/testing/avatares')
   );
   let avatar = avatarImages[Math.floor(Math.random() * avatarImages.length)];
-  return await fs.readFile(path.join(__dirname, `/avatares_testing/${avatar}`));
+  return await fs.readFile(path.join(__dirname, `/testing/avatares/${avatar}`));
 };
+
+//Función que devuelve un fichero random
+const getRandomFile = async () => {
+  let serviceFiles = await fs.readdir(
+    path.join(__dirname, '/testing/services_files')
+  );
+  let file = path.join(
+    __dirname,
+    `/testing/services_files/${
+      serviceFiles[Math.floor(Math.random() * serviceFiles.length)]
+    }`
+  );
+  return file;
+};
+
 module.exports = {
   generateError,
   createPathIfNotExits,
@@ -76,4 +100,6 @@ module.exports = {
   checkPassword,
   encryptPassword,
   getRandomAvatar,
+  getRandomFile,
+  processAndSaveFile,
 };

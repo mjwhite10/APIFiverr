@@ -60,19 +60,6 @@ const editUserSchema = Joi.object().keys({
     ),
 });
 
-const getUserSchema = Joi.object().keys({
-  idUser: Joi.number()
-    .positive()
-    .required()
-    .greater(0)
-    .error(
-      generateError(
-        'El campo idUser debe exisitir y debe ser un entero mayor que 0 ',
-        400
-      )
-    ),
-});
-
 const editUserPasswordSchema = Joi.object().keys({
   oldPassword: Joi.string()
     .min(4)
@@ -95,10 +82,22 @@ const editUserPasswordSchema = Joi.object().keys({
     ),
 });
 
+const idSchema = Joi.object().keys({
+  idUser: Joi.number()
+    .positive()
+    .required()
+    .greater(0)
+    .error(
+      generateError(
+        'El campo idUser debe exisitir y debe ser un entero mayor que 0 ',
+        400
+      )
+    ),
+});
 module.exports = {
   newUserSchema,
   loginUserSchema,
   editUserSchema,
-  getUserSchema,
   editUserPasswordSchema,
+  idSchema,
 };

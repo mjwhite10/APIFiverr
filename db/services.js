@@ -67,6 +67,21 @@ const getServiceById = async (id) => {
   }
 };
 
+
+const createService = async (title, info, file, category) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [newService] = await connection.query(
+      `
+      INSERT INTO services (title, info, file, idCategory, idStatus, createdAt)
+      VALUES(?,?,?,?,?,UTC_TIMESTAMP)
+    `,
+      [title, info, file, category]
+    );
+
+    return newService.insertId;
 const getServiceSolutionByIdService = async (idService) => {
   let connection;
   try {
@@ -85,6 +100,25 @@ const getServiceSolutionByIdService = async (idService) => {
     if (connection) connection.release();
   }
 };
+
+
+const getIdCategory = async (category) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [idCategory] = await connection.query(
+      `SELECT id FROM services_categories WHERE description = ? 
+      `,
+      [category]
+    );
+
+    return idCategory[0];
+
+  } finally {
+    if (connection) connection.release();
+  }
+}
 
 const deleteServiceById = async (idService) => {
   let connection;
@@ -134,4 +168,6 @@ module.exports = {
   getServiceById,
   deleteServiceById,
   createServiceSolution,
+  createService, 
+  getIdCategory
 };

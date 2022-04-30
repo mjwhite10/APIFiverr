@@ -99,7 +99,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /users/:idUser/password` - Editar la contraseña de un usuario. ✅
+* `PUT /users/:idUser/password` - Editar la contraseña de un usuario.
 
   * Cabecera auth: Si
   * Path Params:

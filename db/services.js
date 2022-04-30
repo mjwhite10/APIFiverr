@@ -67,7 +67,6 @@ const getServiceById = async (id) => {
   }
 };
 
-
 const createService = async (title, info, file, category) => {
   let connection;
   try {
@@ -82,6 +81,10 @@ const createService = async (title, info, file, category) => {
     );
 
     return newService.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 const getServiceSolutionByIdService = async (idService) => {
   let connection;
   try {
@@ -101,7 +104,6 @@ const getServiceSolutionByIdService = async (idService) => {
   }
 };
 
-
 const getIdCategory = async (category) => {
   let connection;
   try {
@@ -114,11 +116,10 @@ const getIdCategory = async (category) => {
     );
 
     return idCategory[0];
-
   } finally {
     if (connection) connection.release();
   }
-}
+};
 
 const deleteServiceById = async (idService) => {
   let connection;
@@ -168,6 +169,6 @@ module.exports = {
   getServiceById,
   deleteServiceById,
   createServiceSolution,
-  createService, 
-  getIdCategory
+  createService,
+  getIdCategory,
 };

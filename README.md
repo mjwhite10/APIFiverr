@@ -149,6 +149,7 @@ mediante un fichero digital.
     * title
     * info
     * file
+    * category
   * Retorna: mensaje que indica que se ha generado el servicio
 
 &nbsp;

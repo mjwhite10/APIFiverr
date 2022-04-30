@@ -48,7 +48,7 @@ const getUserById = async (id) => {
 
     const [user] = await connection.query(
       `
-    SELECT id,email,password,name,bio,avatar,role
+    SELECT id,email,password,name,bio,avatar,role,lastAuthUpdate
     FROM users
     WHERE id = ?`,
       [id]
@@ -96,15 +96,16 @@ const deleteUserById = async (id) => {
 
 const editUserPasswordById = async (id, password) => {
   let connection;
-
   try {
-    const passwordHash = encryptPassword(password);
+    connection = await getConnection();
+    //Encriptamos la password
+    const passwordHash = await encryptPassword(password);
 
     await connection.query(
       `
-    UPDATE users
-    SET password = ?, modifiedAt = UTC_TIMESTAMP
-    WHERE id = ?`,
+      UPDATE users
+      SET password = ?, modifiedAt = UTC_TIMESTAMP, lastAuthUpdate=UTC_TIMESTAMP
+      WHERE id = ?`,
       [passwordHash, id]
     );
   } finally {

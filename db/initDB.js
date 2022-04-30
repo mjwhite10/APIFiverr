@@ -8,6 +8,8 @@ const {
   createPathIfNotExits,
   getRandomAvatar,
   deleteFile,
+  getRandomFile,
+  processAndSaveFile,
 } = require('../helpers');
 const { getConnection } = require('./getDB');
 
@@ -107,8 +109,11 @@ async function main() {
     );
 
     const uploadAvatarPath = path.join(__dirname, '../uploads/avatar');
+    const uploadServicesPath = path.join(__dirname, '../uploads/services');
     await deleteFile(uploadAvatarPath);
+    await deleteFile(uploadServicesPath);
     await createPathIfNotExits(uploadAvatarPath);
+    await createPathIfNotExits(uploadServicesPath);
 
     const avatar1 = await getRandomAvatar();
     const avatar2 = await getRandomAvatar();
@@ -179,6 +184,32 @@ async function main() {
         INSERT INTO services_categories (description)
         VALUES (?)`,
         [services_categories[index]]
+      );
+    }
+
+    const services = 5;
+
+    console.log('Creando servicios...');
+    for (let i = 0; i < services; i++) {
+      const [users] = await connection.query('SELECT COUNT(*) FROM users');
+      const [categories] = await connection.query(
+        'SELECT COUNT(*) FROM services_categories'
+      );
+
+      const idUser = Math.floor(1 + Math.random() * users[0]['COUNT(*)']);
+      const title = faker.lorem.word();
+      const info = faker.lorem.text();
+      const service = await getRandomFile();
+      const file = await processAndSaveFile(service, uploadServicesPath);
+      const idCategory = Math.floor(
+        1 + Math.random() * categories[0]['COUNT(*)']
+      );
+
+      await connection.query(
+        `
+        INSERT INTO services (idUser,title,info,file,idStatus,idCategory,createdAt,modifiedAt)
+        VALUES (?,?,?,?,1,?,UTC_TIMESTAMP,UTC_TIMESTAMP)`,
+        [idUser, title, info, file, idCategory]
       );
     }
 

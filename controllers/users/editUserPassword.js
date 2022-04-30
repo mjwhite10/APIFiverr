@@ -29,7 +29,7 @@ const editUserPassword = async (req, res, next) => {
       throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
 
     //Verificamos que la password antigua sea correcta...
-    const validPassword = checkPassword(oldPassword, user.password);
+    const validPassword = await checkPassword(oldPassword, user.password);
 
     //Si la password no era valida...
     if (!validPassword) throw generateError('La contraseña no es válida', 401);
@@ -38,8 +38,8 @@ const editUserPassword = async (req, res, next) => {
     await editUserPasswordById(idUser, newPassword);
 
     res.send({
-      status: 'error',
-      message: 'Not implemented',
+      status: 'Ok',
+      message: 'La contraseña ha sido actualizada',
     });
   } catch (error) {
     next(error);

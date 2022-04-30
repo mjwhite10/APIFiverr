@@ -10,7 +10,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     if (search) {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
+          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -25,7 +25,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     } else {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description, SS.description, S.createdAt
+          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id

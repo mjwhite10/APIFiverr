@@ -55,10 +55,12 @@ app.get('/services/:idService', getService);
 app.post('/services', newService);
 app.put('/services/:idService', editService);
 app.delete('/services/:idService', deleteService);
+
 app.post('/services/:idService/solution', newServiceSolution);
 app.get('/services/:idService/solution', getServiceSolution);
 app.put('/services/:idService/solution', editServiceSolution);
 app.delete('/services/:idService/solution/:idSolution', deleteServiceSolution);
+
 app.post('/services/:idService/comments', newServiceComment);
 app.get('/services/:idService/comments/:idComment', getServiceComment);
 app.get('/services/:idService/comments', listServiceComments);

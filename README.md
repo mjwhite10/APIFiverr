@@ -99,7 +99,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /users/:idUser/password` - Editar la contraseña de un usuario.
+* `PUT /users/:idUser/password` - Editar la contraseña de un usuario. ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -122,7 +122,7 @@ mediante un fichero digital.
 
 ### Endpoints de servicios
 
-* `GET /services` - Obtener un listado de todos los servicios.
+* `GET /services` - Obtener un listado de todos los servicios. ✅
 
   * Cabecera auth: No
   * Querystring:
@@ -163,7 +163,7 @@ mediante un fichero digital.
     * title
     * info
     * file
-    * status
+    * category
   * Retorna: mensaje que indica que el servicio ha sido editado
 
 &nbsp;

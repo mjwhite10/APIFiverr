@@ -2,13 +2,13 @@ const { getUserById, editUserPasswordById } = require('../../db/users');
 const { generateError, checkPassword } = require('../../helpers');
 const {
   editUserPasswordSchema,
-  getUserSchema,
+  idSchema,
 } = require('../../validators/userValidators');
 
 const editUserPassword = async (req, res, next) => {
   try {
     //Validamos los parametros
-    await getUserSchema.validateAsync(req.params);
+    await idSchema.validateAsync(req.params);
     //Validamos el body
     await editUserPasswordSchema.validateAsync(req.body);
 

@@ -67,7 +67,6 @@ const getServiceById = async (id) => {
   }
 };
 
-
 const createService = async (title, info, file, category) => {
   let connection;
   try {
@@ -80,8 +79,12 @@ const createService = async (title, info, file, category) => {
     `,
       [title, info, file, category]
     );
-
     return newService.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 const getServiceSolutionByIdService = async (idService) => {
   let connection;
   try {
@@ -101,7 +104,6 @@ const getServiceSolutionByIdService = async (idService) => {
   }
 };
 
-
 const getIdCategory = async (category) => {
   let connection;
   try {
@@ -114,11 +116,10 @@ const getIdCategory = async (category) => {
     );
 
     return idCategory[0];
-
   } finally {
     if (connection) connection.release();
   }
-}
+};
 
 const deleteServiceById = async (idService) => {
   let connection;
@@ -162,12 +163,47 @@ const createServiceSolution = async (idService, idUser) => {
   }
 };
 
+const createServiceComment = async (content) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [newServiceComment] = await connection.query(
+      `
+      INSERT INTO services_comment (idUser, idService)
+      VALUES(?,?)
+    `,
+      [content]
+    );
+    return newServiceComment.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const deleteServiceCommentById = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(
+      `
+      DELETE FROM services_comment (idUser, idService)
+      WHERE id = ?`,
+      [idService]
+    );
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
   getServiceById,
   deleteServiceById,
   createServiceSolution,
-  createService, 
-  getIdCategory
+  createService,
+  getIdCategory,
+  createServiceComment,
+  deleteServiceCommentById
 };

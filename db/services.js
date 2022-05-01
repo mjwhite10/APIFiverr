@@ -79,12 +79,12 @@ const createService = async (title, info, file, category) => {
     `,
       [title, info, file, category]
     );
-
     return newService.insertId;
   } finally {
     if (connection) connection.release();
   }
 };
+
 const getServiceSolutionByIdService = async (idService) => {
   let connection;
   try {
@@ -163,6 +163,39 @@ const createServiceSolution = async (idService, idUser) => {
   }
 };
 
+const createServiceComment = async (content) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [newServiceComment] = await connection.query(
+      `
+      INSERT INTO services_comment (idUser, idService)
+      VALUES(?,?)
+    `,
+      [content]
+    );
+    return newServiceComment.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const deleteServiceCommentById = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(
+      `
+      DELETE FROM services_comment (idUser, idService)
+      WHERE id = ?`,
+      [idService]
+    );
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
@@ -171,4 +204,6 @@ module.exports = {
   createServiceSolution,
   createService,
   getIdCategory,
+  createServiceComment,
+  deleteServiceCommentById
 };

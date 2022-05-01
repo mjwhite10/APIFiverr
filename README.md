@@ -142,7 +142,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services` - Crear un servicio/necesidad ✅
+* `POST /services` - Crear un servicio/necesidad
 
   * Cabecera auth: Si
   * Body:
@@ -224,6 +224,7 @@ mediante un fichero digital.
   * Path Params:
     * idService
   * Body:
+    * idUser
     * content
   * Retorna: info de todos los comentarios
 

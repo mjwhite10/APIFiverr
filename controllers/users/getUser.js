@@ -1,13 +1,13 @@
 const { getUserById } = require('../../db/users');
 const { generateError } = require('../../helpers');
-const { idSchema } = require('../../validators/userValidators');
+const { idUserSchema } = require('../../validators/userValidators');
 
 const getUser = async (req, res, next) => {
   try {
     const { idUser } = req.params;
 
     //Validamos el id
-    await idSchema.validateAsync(req.params);
+    await idUserSchema.validateAsync(req.params);
 
     //Seleccionamos el usuario por id
     const user = await getUserById(idUser);

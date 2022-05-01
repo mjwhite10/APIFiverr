@@ -10,7 +10,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     if (search) {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+          SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -25,7 +25,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     } else {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+          SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -50,7 +50,7 @@ const getServiceById = async (id) => {
     connection = await getConnection();
     const [service] = await connection.query(
       `
-        SELECT S.id, U.name, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+        SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
         FROM services AS S
         INNER JOIN services_categories AS SC
         ON S.idCategory = SC.id
@@ -67,17 +67,17 @@ const getServiceById = async (id) => {
   }
 };
 
-const createService = async (title, info, file, category) => {
+const createService = async (idUser, title, info, file, category) => {
   let connection;
   try {
     connection = await getConnection();
 
     const [newService] = await connection.query(
       `
-      INSERT INTO services (title, info, file, idCategory, idStatus, createdAt)
-      VALUES(?,?,?,?,?,UTC_TIMESTAMP)
+      INSERT INTO services (idUser,title, info, file, idCategory, idStatus, createdAt)
+      VALUES(?,?,?,?,?,1,UTC_TIMESTAMP)
     `,
-      [title, info, file, category]
+      [idUser, title, info, file, category]
     );
     return newService.insertId;
   } finally {
@@ -91,7 +91,7 @@ const getServiceSolutionByIdService = async (idService) => {
     connection = await getConnection();
     const [solution] = await connection.query(
       `
-      SELECT SS.id, U.name, SS.file, SS.startedAt, SS.finishedAt
+      SELECT SS.id, U.name as user, SS.file, SS.startedAt, SS.finishedAt
       FROM services_solution AS SS
       INNER JOIN users AS U
       ON SS.idUser = U.id
@@ -110,7 +110,8 @@ const getIdCategory = async (category) => {
     connection = await getConnection();
 
     const [idCategory] = await connection.query(
-      `SELECT id FROM services_categories WHERE description = ? 
+      `SELECT id 
+      FROM services_categories WHERE description = ? 
       `,
       [category]
     );
@@ -125,12 +126,21 @@ const deleteServiceById = async (idService) => {
   let connection;
   try {
     connection = await getConnection();
+    await connection.query(`START TRANSACTION`);
+    await connection.query(
+      `
+    DELETE FROM services_comments
+    WHERE idService = ?`,
+      [idService]
+    );
     await connection.query(
       `
       DELETE FROM services
       WHERE id = ?`,
       [idService]
     );
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
   } finally {
     if (connection) connection.release();
   }
@@ -163,17 +173,17 @@ const createServiceSolution = async (idService, idUser) => {
   }
 };
 
-const createServiceComment = async (content) => {
+const createServiceComment = async (idUser, idService, content) => {
   let connection;
   try {
     connection = await getConnection();
 
     const [newServiceComment] = await connection.query(
       `
-      INSERT INTO services_comment (idUser, idService)
-      VALUES(?,?)
+      INSERT INTO services_comments (idUser, idService, content, createdAt)
+      VALUES(?,?,?,UTC_TIMESTAMP)
     `,
-      [content]
+      [idUser, idService, content]
     );
     return newServiceComment.insertId;
   } finally {
@@ -181,15 +191,15 @@ const createServiceComment = async (content) => {
   }
 };
 
-const deleteServiceCommentById = async (idService) => {
+const deleteServiceCommentById = async (idComment) => {
   let connection;
   try {
     connection = await getConnection();
     await connection.query(
       `
-      DELETE FROM services_comment (idUser, idService)
+      DELETE FROM services_comment
       WHERE id = ?`,
-      [idService]
+      [idComment]
     );
   } finally {
     if (connection) connection.release();
@@ -205,5 +215,5 @@ module.exports = {
   createService,
   getIdCategory,
   createServiceComment,
-  deleteServiceCommentById
+  deleteServiceCommentById,
 };

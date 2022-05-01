@@ -1,20 +1,36 @@
-const {getServiceById, createServiceComment,} = require('../../db/services');
+const { getServiceById, createServiceComment } = require('../../db/services');
 const { generateError } = require('../../helpers');
+const {
+  idServiceSchema,
+  newServiceCommentSchema,
+} = require('../../validators/servicesValidators');
 
 const newServiceComment = async (req, res, next) => {
   try {
+    //Validamos los parámetros
+    await idServiceSchema.validateAsync(req.params);
+    //Validamos el body
+    await newServiceCommentSchema.validateAsync(req.body);
+
     const { idService } = req.params;
+    const { idUser, content } = req.body;
 
-    const { idUser } = req.body;
-
+    //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
     if (!service)
       throw generateError(`No existe ningún servicio con id ${idService}`, 404);
- 
-    const id = await createServiceComment(idService, idUser);
+
+    //Comprobamos que el servicio esta Unassigned
+    if (service.status !== 'Unassigned')
+      throw generateError(
+        'El servicio ya está cubierto por un usuario, no se admiten comentarios nuevos',
+        406
+      );
+    //Generamos el comentario
+    const id = await createServiceComment(idUser, idService, content);
 
     res.send({
-      status: 'error',
+      status: 'Ok',
       message: `Creado el comentario con id ${id}`,
     });
   } catch (error) {

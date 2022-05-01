@@ -6,7 +6,10 @@ const {
   processAndSaveImage,
   deleteFile,
 } = require('../../helpers');
-const { editUserSchema, idSchema } = require('../../validators/userValidators');
+const {
+  editUserSchema,
+  idUserSchema,
+} = require('../../validators/userValidators');
 
 const editUser = async (req, res, next) => {
   try {
@@ -14,7 +17,7 @@ const editUser = async (req, res, next) => {
     const { email, name, bio } = req.body;
 
     //Validamos los parámetros
-    await idSchema.validateAsync(req.params);
+    await idUserSchema.validateAsync(req.params);
     //Validamos el body
     await editUserSchema.validateAsync(req.body);
 

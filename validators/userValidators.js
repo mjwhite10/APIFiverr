@@ -82,7 +82,7 @@ const editUserPasswordSchema = Joi.object().keys({
     ),
 });
 
-const idSchema = Joi.object().keys({
+const idUserSchema = Joi.object().keys({
   idUser: Joi.number()
     .positive()
     .required()
@@ -99,5 +99,5 @@ module.exports = {
   loginUserSchema,
   editUserSchema,
   editUserPasswordSchema,
-  idSchema,
+  idUserSchema,
 };

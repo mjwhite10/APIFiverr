@@ -1,13 +1,13 @@
 const { deleteUserById, getUserById } = require('../../db/users');
 const { generateError } = require('../../helpers');
-const { idSchema } = require('../../validators/userValidators');
+const { idUserSchema } = require('../../validators/userValidators');
 
 const deleteUser = async (req, res, next) => {
   try {
     const { idUser } = req.params;
 
     //Validamos el id
-    await idSchema.validateAsync(req.params);
+    await idUserSchema.validateAsync(req.params);
 
     //Comprobamos que el id del usuario que queremos modificar es
     // el mismo que firma la petición o bien es un admin

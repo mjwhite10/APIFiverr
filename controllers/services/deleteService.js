@@ -16,6 +16,11 @@ const deleteService = async (req, res, next) => {
     if (!service)
       throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
+    //Comprobamos que el usuario que hace la peticció sea admin
+    //o el usuario que creó el servicio
+    if (service.idUser !== req.auth.id && req.auth.role !== 'admin')
+      throw generateError('No tienes permisos para eliminar este servico', 401);
+
     //Comprobamos que el servicio NO tiene asignada una solución
     const solution = await getServiceSolutionByIdService(idService);
     if (solution || service.status != 'Unassigned')

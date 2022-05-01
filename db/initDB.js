@@ -191,6 +191,7 @@ async function main() {
 
     console.log('Creando servicios...');
     for (let i = 0; i < services; i++) {
+      //SERVICIOS
       const [users] = await connection.query('SELECT COUNT(*) FROM users');
       const [categories] = await connection.query(
         'SELECT COUNT(*) FROM services_categories'
@@ -205,12 +206,28 @@ async function main() {
         1 + Math.random() * categories[0]['COUNT(*)']
       );
 
-      await connection.query(
+      const [result] = await connection.query(
         `
-        INSERT INTO services (idUser,title,info,file,idStatus,idCategory,createdAt,modifiedAt)
-        VALUES (?,?,?,?,1,?,UTC_TIMESTAMP,UTC_TIMESTAMP)`,
+        INSERT INTO services (idUser,title,info,file,idStatus,idCategory,createdAt)
+        VALUES (?,?,?,?,1,?,UTC_TIMESTAMP)`,
         [idUser, title, info, file, idCategory]
       );
+
+      //COMENTARIOS
+      for (let comment = 0; comment < 15; comment++) {
+        const idUserComment = Math.floor(
+          1 + Math.random() * users[0]['COUNT(*)']
+        );
+        const content = faker.lorem.sentence();
+
+        await connection.query(
+          `
+        INSERT INTO services_comments(idUser,idService,content,createdAt)
+        VALUES(?,?,?,UTC_TIMESTAMP)
+        `,
+          [idUserComment, result.insertId, content]
+        );
+      }
     }
 
     console.log('Fin del script');

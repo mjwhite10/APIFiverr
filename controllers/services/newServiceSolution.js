@@ -11,23 +11,29 @@ const newServiceSolution = async (req, res, next) => {
     await idServiceSchema.validateAsync(req.params);
     const { idService } = req.params;
 
-    const { idUser } = req.body;
-
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
     if (!service)
       throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
+    //Comprobamos que el usuario que generó el servicio
+    //no es el mismo que lo cubre
+    if (req.auth.id === service.idUser)
+      throw generateError(
+        'Un usuario no puede publicar una solución a una necesidad creada por el mismo',
+        400
+      );
+
     //Comprobamos que el servicio NO tiene asignada una solución
     const solution = await getServiceSolutionByIdService(idService);
     if (solution)
       throw generateError(
-        `El servicio con id ${idService} tiene asignada una solución. No se puede borrar`,
-        404
+        `El servicio con id ${idService} ya tenía asignada una solución`,
+        406
       );
 
     //Creamos la solución
-    const id = await createServiceSolution(idService, idUser);
+    const id = await createServiceSolution(idService, req.auth.id);
     //Enviamos la respuesta
     res.send({
       status: 'Ok',

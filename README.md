@@ -133,7 +133,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `GET /services/:idService` - Obtener un servicio/necesidad en concreto
+* `GET /services/:idService` - Obtener un servicio/necesidad en concreto ✅
 
   * Cabecera auth: No
   * Path Params:
@@ -142,7 +142,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services` - Crear un servicio/necesidad
+* `POST /services` - Crear un servicio/necesidad ✅
 
   * Cabecera auth: Si
   * Body:

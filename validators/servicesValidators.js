@@ -14,7 +14,7 @@ const idServiceSchema = Joi.object().keys({
     ),
 });
 
-const newServiceSchema = Joi.object().keys({
+const serviceSchema = Joi.object().keys({
   title: Joi.string()
     .max(100)
     .required()
@@ -66,4 +66,8 @@ const newServiceCommentSchema = Joi.object().keys({
     ),
 });
 
-module.exports = { idServiceSchema, newServiceCommentSchema, newServiceSchema };
+module.exports = {
+  idServiceSchema,
+  newServiceCommentSchema,
+  serviceSchema,
+};

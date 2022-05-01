@@ -10,7 +10,7 @@ const searchServices = async (search, orderBy, orderDirection) => {
     if (search) {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+          SELECT S.id, S.idUser, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -18,14 +18,13 @@ const searchServices = async (search, orderBy, orderDirection) => {
           ON S.idStatus = SS.id
           INNER JOIN users AS U
           ON S.idUser = U.id
-          WHERE S.title LIKE ? OR info LIKE ?
-          ORDER BY ${orderBy} ${orderDirection}`,
-        [`%${search}%`, `%${search}%`]
+          WHERE S.title LIKE '%${search}%' OR info LIKE '%${search}%'
+          ORDER BY ${orderBy} ${orderDirection}`
       );
     } else {
       queryResults = await connection.query(
         `
-          SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+          SELECT S.id, S.idUser, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
           FROM services AS S
           INNER JOIN services_categories AS SC
           ON S.idCategory = SC.id
@@ -35,10 +34,10 @@ const searchServices = async (search, orderBy, orderDirection) => {
           ON S.idUser = U.id
           ORDER BY ${orderBy} ${orderDirection}`
       );
-      //Extraemos los resultados en un array
-      const [results] = queryResults;
-      return results;
     }
+    //Extraemos los resultados en un array
+    const [results] = queryResults;
+    return results;
   } finally {
     if (connection) connection.release();
   }
@@ -50,7 +49,7 @@ const getServiceById = async (id) => {
     connection = await getConnection();
     const [service] = await connection.query(
       `
-        SELECT S.id, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
+        SELECT S.id, S.idUser, U.name as user, S.title, S.info, S.file, SC.description as category, SS.description as status, S.createdAt
         FROM services AS S
         INNER JOIN services_categories AS SC
         ON S.idCategory = SC.id
@@ -91,7 +90,7 @@ const getServiceSolutionByIdService = async (idService) => {
     connection = await getConnection();
     const [solution] = await connection.query(
       `
-      SELECT SS.id, U.name as user, SS.file, SS.startedAt, SS.finishedAt
+      SELECT SS.id, SS.idUser, U.name as user, SS.file, SS.startedAt, SS.finishedAt
       FROM services_solution AS SS
       INNER JOIN users AS U
       ON SS.idUser = U.id
@@ -206,6 +205,23 @@ const deleteServiceCommentById = async (idComment) => {
   }
 };
 
+const editServiceById = async (idService, title, info, file, category) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    await connection.query(
+      `
+      UPDATE services
+      SET title = ?, info = ?, file = ?, idCategory = ?, modifiedAt = UTC_TIMESTAMP
+      WHERE id = ?`,
+      [title, info, file, category, idService]
+    );
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
@@ -216,4 +232,5 @@ module.exports = {
   getIdCategory,
   createServiceComment,
   deleteServiceCommentById,
+  editServiceById,
 };

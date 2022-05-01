@@ -142,19 +142,19 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services` - Crear un servicio/necesidad
+* `POST /services` - Crear un servicio/necesidad ✅
 
   * Cabecera auth: Si
   * Body:
     * title
     * info
-    * file
+    * serviceFile
     * category
   * Retorna: mensaje que indica que se ha generado el servicio
 
 &nbsp;
 
-* `PUT /services/:idService` - Editar un servicio/necesidad
+* `PUT /services/:idService` - Editar un servicio/necesidad ✅
 
   * Cabecera auth: Si
   * Path Params:

@@ -1,5 +1,7 @@
 require('dotenv').config();
+const fs = require('fs/promises');
 const path = require('path');
+const uuid = require('uuid');
 //const fs = require('fs/promises');
 const bcrypt = require('bcrypt');
 const faker = require('faker/locale/es');
@@ -9,7 +11,6 @@ const {
   getRandomAvatar,
   deleteFile,
   getRandomFile,
-  processAndSaveFile,
 } = require('../helpers');
 const { getConnection } = require('./getDB');
 
@@ -199,9 +200,12 @@ async function main() {
 
       const idUser = Math.floor(1 + Math.random() * users[0]['COUNT(*)']);
       const title = faker.lorem.word();
-      const info = faker.lorem.text();
+      const info = faker.lorem.sentence();
       const service = await getRandomFile();
-      const file = await processAndSaveFile(service, uploadServicesPath);
+      //Generamos el nombre único con el que se guardará el archivo
+      const fileName = `${uuid.v4()}${path.extname(service)}`;
+      //Copiamos y renombramos el archivo con el uuid
+      await fs.copyFile(service, path.join(uploadServicesPath, fileName));
       const idCategory = Math.floor(
         1 + Math.random() * categories[0]['COUNT(*)']
       );
@@ -210,7 +214,7 @@ async function main() {
         `
         INSERT INTO services (idUser,title,info,file,idStatus,idCategory,createdAt)
         VALUES (?,?,?,?,1,?,UTC_TIMESTAMP)`,
-        [idUser, title, info, file, idCategory]
+        [idUser, title, info, fileName, idCategory]
       );
 
       //COMENTARIOS

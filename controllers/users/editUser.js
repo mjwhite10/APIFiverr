@@ -69,6 +69,7 @@ const editUser = async (req, res, next) => {
       avatarFileName = user.avatar;
     }
 
+    //Modificamos los datos del usuario
     await editUserById(email, name, bio, avatarFileName, idUser);
 
     res.send({

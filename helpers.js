@@ -53,10 +53,9 @@ const processAndSaveImage = async (uploadedImage, imageUploadPath) => {
 //Función que copia un archivo en la direción especificada
 const processAndSaveFile = async (uploadedFile, fileUploadPath) => {
   //Generamos el nombre del archivo=>uid+extension
-  const fileName = `${uuid.v4()}${path.extname(uploadedFile)}`;
+  const fileName = `${uuid.v4()}${path.extname(uploadedFile.name)}`;
   //Copiamos el contenido del archivo y lo renombramos
-  await fs.copyFile(uploadedFile, path.join(fileUploadPath, fileName));
-
+  await fs.writeFile(path.join(fileUploadPath, fileName), uploadedFile.data);
   return fileName;
 };
 
@@ -83,6 +82,7 @@ const getRandomFile = async () => {
   let serviceFiles = await fs.readdir(
     path.join(__dirname, '/testing/services_files')
   );
+
   let file = path.join(
     __dirname,
     `/testing/services_files/${

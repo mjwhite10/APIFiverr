@@ -81,7 +81,25 @@ const deleteUserById = async (id) => {
 
   try {
     connection = await getConnection();
-
+    await connection.query(`START TRANSACTION`);
+    await connection.query(
+      `
+    DELETE FROM services_comments
+    WHERE idUser = ?`,
+      [id]
+    );
+    await connection.query(
+      `
+    DELETE FROM solutions
+    WHERE idUser = ?`,
+      [id]
+    );
+    await connection.query(
+      `
+    DELETE FROM services
+    WHERE idUser = ?`,
+      [id]
+    );
     await connection.query(
       `
       DELETE FROM users 
@@ -89,6 +107,8 @@ const deleteUserById = async (id) => {
     `,
       [id]
     );
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
   } finally {
     if (connection) connection.release();
   }

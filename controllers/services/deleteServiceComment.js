@@ -1,15 +1,48 @@
-const { getServiceById, deleteServiceCommentById } = require('../../db/services');
+const {
+  getServiceById,
+  deleteServiceCommentById,
+  getServiceCommentById,
+} = require('../../db/services');
 const { generateError } = require('../../helpers');
+const {
+  getServiceCommentSchema,
+} = require('../../validators/servicesValidators');
 
 const deleteServiceComment = async (req, res, next) => {
   try {
-    const { idService } = req.params;
+    //Validamos los parametros
+    await getServiceCommentSchema.validateAsync(req.params);
+    const { idService, idComment } = req.params;
 
+    //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
     if (!service)
-      throw generateError(`No existe ningún usuario con el id ${idService}`, 404);
+      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
-    await deleteServiceCommentById(idService);
+    //Comprobamos que existe el comentario
+    const comment = await getServiceCommentById(idComment, idService);
+    if (!comment)
+      throw generateError(
+        `No existe ningún comentario con id ${idComment}`,
+        404
+      );
+
+    //Comprobamos que el servicio no estaba finalizado
+    if (service.status !== 'Completed')
+      throw generateError(
+        `No se puede borrar un comentario de un servicio finalizado`,
+        401
+      );
+
+    //Comprobamos que el usuario es el mismo
+    //que genera el comentario o es admin
+    if (req.auth.id !== comment.idUser && req.auth.role !== 'admin')
+      throw generateError(
+        `No tienes los permisos para borrar ese comentario`,
+        401
+      );
+    //Borramos el comentario solicitado
+    await deleteServiceCommentById(idComment);
 
     res.send({
       status: 'ok',

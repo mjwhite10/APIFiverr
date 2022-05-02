@@ -32,6 +32,7 @@ const {
 
 //Middlewares
 const { isUser } = require('./middlewares/isUser');
+const { isAdmin } = require('./middlewares/isAdmin');
 const app = express();
 app.use(express.json());
 
@@ -50,7 +51,7 @@ app.get('/users/:idUser', isUser, getUser);
 app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
 app.put('/users/:idUser/password', isUser, editUserPassword);
-app.delete('/users/:idUser', isUser, deleteUser);
+app.delete('/users/:idUser', isUser, isAdmin, deleteUser);
 
 //Services endpoints
 app.get('/services', listServices);
@@ -60,15 +61,19 @@ app.put('/services/:idService', isUser, editService);
 app.delete('/services/:idService', isUser, deleteService);
 //Service solutions
 app.post('/services/:idService/solution', isUser, newServiceSolution);
-app.get('/services/:idService/solution', getServiceSolution);
-app.put('/services/:idService/solution', editServiceSolution);
-app.delete('/services/:idService/solution/:idSolution', deleteServiceSolution);
+app.get('/services/:idService/solution', isUser, getServiceSolution);
+app.put('/services/:idService/solution', isUser, editServiceSolution);
+app.delete('/services/:idService/solution', isUser, deleteServiceSolution);
 //Service comments
-app.post('/services/:idService/comments', newServiceComment);
+app.post('/services/:idService/comments', isUser, newServiceComment);
 app.get('/services/:idService/comments/:idComment', getServiceComment);
 app.get('/services/:idService/comments', listServiceComments);
 app.put('/services/:idService/comments/:idComment', editServiceComment);
-app.delete('/services/:idService/comments/:idComment', deleteServiceComment);
+app.delete(
+  '/services/:idService/comments/:idComment',
+  isUser,
+  deleteServiceComment
+);
 
 //Not found Middleware
 app.use((req, res) => {

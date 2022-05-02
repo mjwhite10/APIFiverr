@@ -197,28 +197,28 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /services/:idService/solution` - Permite editar una solución
+* `PUT /services/:idService/solution` - Permite editar una solución ✅
 
   * Cabecera auth: Si
   * Path Params:
     * idService
   * Body:
     * file
+    * finished
   * Retorna: mensaje que indica que se ha modificado la solución
 
 &nbsp;
 
-* `DELETE /services/:idService/solution/:idSolution` - Eliminar una solución
+* `DELETE /services/:idService/solution` - Eliminar una solución ✅
 
   * Cabecera auth: Si
   * Path Params:
     * idService
-    * idSolution
   * Retorna: mensaje que indica que se elimino la solución
 
   &nbsp;
 
-* `POST /services/:idService/comments` - Añade un comentario a una necesidad/servicio existente
+* `POST /services/:idService/comments` - Añade un comentario a una necesidad/servicio existente ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -230,7 +230,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `GET /services/:idService/comments/:idComment` - Devuelve un sólo comentario
+* `GET /services/:idService/comments/:idComment` - Devuelve un sólo comentario ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -240,7 +240,7 @@ mediante un fichero digital.
 
     &nbsp;
 
-* `GET /services/:idService/comments` - Obtener los comentarios de una necesidad/servicio existente
+* `GET /services/:idService/comments` - Obtener los comentarios de una necesidad/servicio existente ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -260,7 +260,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `DELETE /services/:idService/comments/:idComment` - Eliminar un comentario
+* `DELETE /services/:idService/comments/:idComment` - Eliminar un comentario ✅
 
   * Cabecera auth: Si
   * Path Params:

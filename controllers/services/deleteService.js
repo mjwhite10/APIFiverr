@@ -1,9 +1,10 @@
+const path = require('path');
 const {
   getServiceById,
   getServiceSolutionByIdService,
   deleteServiceById,
 } = require('../../db/services');
-const { generateError } = require('../../helpers');
+const { generateError, deleteFile } = require('../../helpers');
 const { idServiceSchema } = require('../../validators/servicesValidators');
 const deleteService = async (req, res, next) => {
   try {
@@ -29,6 +30,11 @@ const deleteService = async (req, res, next) => {
         404
       );
 
+    //Si tenía asignado un fichero lo eliminamos
+    if (service.file) {
+      const uploadPath = path.join(__dirname, '../../uploads/services');
+      await deleteFile(path.join(uploadPath, service.file));
+    }
     //Borramos el servicio
     await deleteServiceById(idService);
 

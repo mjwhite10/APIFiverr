@@ -16,20 +16,20 @@ const newServiceSolution = async (req, res, next) => {
     if (!service)
       throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
+    //Comprobamos que el servicio no tiene asignada una solución
+    const solution = await getServiceSolutionByIdService(idService);
+    if (solution)
+      throw generateError(
+        `El servicio con id ${idService} ya tenía asignada una solución`,
+        406
+      );
+
     //Comprobamos que el usuario que generó el servicio
     //no es el mismo que lo cubre
     if (req.auth.id === service.idUser)
       throw generateError(
         'Un usuario no puede publicar una solución a una necesidad creada por el mismo',
         400
-      );
-
-    //Comprobamos que el servicio NO tiene asignada una solución
-    const solution = await getServiceSolutionByIdService(idService);
-    if (solution)
-      throw generateError(
-        `El servicio con id ${idService} ya tenía asignada una solución`,
-        406
       );
 
     //Creamos la solución

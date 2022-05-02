@@ -84,38 +84,18 @@ const createService = async (idUser, title, info, file, category) => {
   }
 };
 
-const getServiceSolutionByIdService = async (idService) => {
+const editServiceById = async (idService, title, info, file, category) => {
   let connection;
   try {
     connection = await getConnection();
-    const [solution] = await connection.query(
+
+    await connection.query(
       `
-      SELECT SS.id, SS.idUser, U.name as user, SS.file, SS.startedAt, SS.finishedAt
-      FROM services_solution AS SS
-      INNER JOIN users AS U
-      ON SS.idUser = U.id
-      WHERE SS.idService = ?`,
-      [idService]
+      UPDATE services
+      SET title = ?, info = ?, file = ?, idCategory = ?, modifiedAt = UTC_TIMESTAMP
+      WHERE id = ?`,
+      [title, info, file, category, idService]
     );
-    return solution[0];
-  } finally {
-    if (connection) connection.release();
-  }
-};
-
-const getIdCategory = async (category) => {
-  let connection;
-  try {
-    connection = await getConnection();
-
-    const [idCategory] = await connection.query(
-      `SELECT id 
-      FROM services_categories WHERE description = ? 
-      `,
-      [category]
-    );
-
-    return idCategory[0];
   } finally {
     if (connection) connection.release();
   }
@@ -140,6 +120,25 @@ const deleteServiceById = async (idService) => {
     );
   } catch (error) {
     await connection.query(`ROLLBACK`);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const getServiceSolutionByIdService = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    const [solution] = await connection.query(
+      `
+      SELECT SS.id, SS.idUser, U.name as user, SS.file, SS.startedAt, SS.finishedAt
+      FROM services_solution AS SS
+      INNER JOIN users AS U
+      ON SS.idUser = U.id
+      WHERE SS.idService = ?`,
+      [idService]
+    );
+    return solution[0];
   } finally {
     if (connection) connection.release();
   }
@@ -172,6 +171,91 @@ const createServiceSolution = async (idService, idUser) => {
   }
 };
 
+const editServiceSolutionById = async (idService, file, finished) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(`START TRANSACTION`);
+
+    if (finished.toLowerCase() === 'true') {
+      await connection.query(
+        `
+      UPDATE services_solution
+      SET file = ?, finishedAt = UTC_TIMESTAMP
+      WHERE idService = ?`,
+        [file, idService]
+      );
+      await connection.query(
+        `
+      UPDATE services
+      SET idStatus = 3
+      WHERE id = ?`,
+        [idService]
+      );
+    } else {
+      await connection.query(
+        `
+        UPDATE services_solution
+        SET file = ?
+        WHERE idService = ?`,
+        [file, idService]
+      );
+    }
+    await connection.query(`COMMIT`);
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const deleteServiceSolutionById = async (idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    await connection.query(`START TRANSACTION`);
+
+    console.log('Paso 1');
+    await connection.query(
+      `
+    UPDATE services
+    SET idStatus = 1
+    WHERE id = ?`,
+      [idService]
+    );
+    console.log('Paso 2');
+    await connection.query(
+      `
+    DELETE FROM services_solution
+    WHERE idService = ?`,
+      [idService]
+    );
+    await connection.query(`COMMIT`);
+  } catch (error) {
+    await connection.query(`ROLLBACK`);
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+const getIdCategory = async (category) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [idCategory] = await connection.query(
+      `SELECT id 
+      FROM services_categories WHERE description = ? 
+      `,
+      [category]
+    );
+
+    return idCategory[0];
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 const createServiceComment = async (idUser, idService, content) => {
   let connection;
   try {
@@ -190,13 +274,32 @@ const createServiceComment = async (idUser, idService, content) => {
   }
 };
 
+const getServiceCommentById = async (idComment, idService) => {
+  let connection;
+  try {
+    connection = await getConnection();
+    const [result] = await connection.query(
+      `
+      SELECT SC.id, SC.content, U.name, SC.idUser, SC.idService, SC.createdAt, SC.modifiedAt
+      FROM services_comments AS SC
+      INNER JOIN users AS U
+      ON U.id = SC.idUser
+      WHERE SC.id = ? AND SC.idService = ?`,
+      [idComment, idService]
+    );
+    return result[0];
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
 const deleteServiceCommentById = async (idComment) => {
   let connection;
   try {
     connection = await getConnection();
     await connection.query(
       `
-      DELETE FROM services_comment
+      DELETE FROM services_comments
       WHERE id = ?`,
       [idComment]
     );
@@ -205,23 +308,24 @@ const deleteServiceCommentById = async (idComment) => {
   }
 };
 
-const editServiceById = async (idService, title, info, file, category) => {
+const getServiceComments = async (idService) => {
   let connection;
   try {
     connection = await getConnection();
-
-    await connection.query(
+    const [result] = await connection.query(
       `
-      UPDATE services
-      SET title = ?, info = ?, file = ?, idCategory = ?, modifiedAt = UTC_TIMESTAMP
-      WHERE id = ?`,
-      [title, info, file, category, idService]
+      SELECT SC.id, SC.content, U.name, SC.idUser, SC.idService, SC.createdAt, SC.modifiedAt
+      FROM services_comments AS SC
+      INNER JOIN users AS U
+      ON U.id = SC.idUser
+      WHERE SC.idService = ?`,
+      [idService]
     );
+    return result;
   } finally {
     if (connection) connection.release();
   }
 };
-
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
@@ -233,4 +337,8 @@ module.exports = {
   createServiceComment,
   deleteServiceCommentById,
   editServiceById,
+  editServiceSolutionById,
+  deleteServiceSolutionById,
+  getServiceCommentById,
+  getServiceComments,
 };

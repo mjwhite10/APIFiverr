@@ -8,12 +8,11 @@ const idServiceSchema = Joi.object().keys({
     .greater(0)
     .error(
       generateError(
-        'El campo idUser debe exisitir y debe ser un entero mayor que 0 ',
+        'El campo idService debe exisitir y debe ser un entero mayor que 0 ',
         400
       )
     ),
 });
-
 const serviceSchema = Joi.object().keys({
   title: Joi.string()
     .max(100)
@@ -66,8 +65,43 @@ const newServiceCommentSchema = Joi.object().keys({
     ),
 });
 
+const editServiceSolutionSchema = Joi.object().keys({
+  finished: Joi.boolean()
+    .required()
+    .error(
+      generateError(
+        'El campo fisnished debe existir y ser del tipo boleano',
+        400
+      )
+    ),
+});
+
+const getServiceCommentSchema = Joi.object().keys({
+  idService: Joi.number()
+    .positive()
+    .required()
+    .greater(0)
+    .error(
+      generateError(
+        'El campo idService debe exisitir y debe ser un entero mayor que 0 ',
+        400
+      )
+    ),
+  idComment: Joi.number()
+    .positive()
+    .required()
+    .greater(0)
+    .error(
+      generateError(
+        'El campo idComment debe exisitir y debe ser un entero mayor que 0 ',
+        400
+      )
+    ),
+});
 module.exports = {
   idServiceSchema,
   newServiceCommentSchema,
   serviceSchema,
+  editServiceSolutionSchema,
+  getServiceCommentSchema,
 };

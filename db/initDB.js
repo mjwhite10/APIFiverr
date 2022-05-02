@@ -111,10 +111,15 @@ async function main() {
 
     const uploadAvatarPath = path.join(__dirname, '../uploads/avatar');
     const uploadServicesPath = path.join(__dirname, '../uploads/services');
+    const uploadSolutionsPath = path.join(__dirname, '../uploads/solutions');
+
     await deleteFile(uploadAvatarPath);
     await deleteFile(uploadServicesPath);
+    await deleteFile(uploadSolutionsPath);
+
     await createPathIfNotExits(uploadAvatarPath);
     await createPathIfNotExits(uploadServicesPath);
+    await createPathIfNotExits(uploadSolutionsPath);
 
     const avatar1 = await getRandomAvatar();
     const avatar2 = await getRandomAvatar();

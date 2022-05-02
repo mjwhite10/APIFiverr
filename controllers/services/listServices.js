@@ -30,9 +30,21 @@ const listServices = async (req, res, next) => {
     }
     //Recogemos el resultado de la query
     const data = await searchServices(search, orderBy, orderDirection);
+    //Filtramos la información devuelta
+    const servicesInfo = [];
+    for (const service of data) {
+      servicesInfo.push({
+        User: service.user,
+        Title: service.title,
+        Info: service.info,
+        File: service.file,
+        Category: service.category,
+        Status: service.status,
+      });
+    }
     res.send({
       status: 'Ok',
-      message: data,
+      message: servicesInfo,
     });
   } catch (error) {
     next(error);

@@ -66,7 +66,7 @@ const editUserPasswordSchema = Joi.object().keys({
     .required()
     .error(
       generateError(
-        'El campo oldPassword debe existir y ser mayor de 8 caracteres',
+        'El campo oldPassword debe existir y ser mayor de 4 caracteres',
         400
       )
     ),
@@ -76,7 +76,7 @@ const editUserPasswordSchema = Joi.object().keys({
     .invalid(Joi.ref('oldPassword'))
     .error(
       generateError(
-        'El campo newPassword debe existir, ser diferente a oldPassword y ser mayor de 8 caracteres',
+        'El campo newPassword debe existir, ser diferente a oldPassword y ser mayor de 4 caracteres',
         400
       )
     ),

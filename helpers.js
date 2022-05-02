@@ -14,6 +14,7 @@ const generateError = (message, status) => {
 const checkPassword = async (password, encryptedPassword) => {
   //Comparamos las passwords
   const validPassword = await bcrypt.compare(password, encryptedPassword);
+
   return validPassword;
 };
 

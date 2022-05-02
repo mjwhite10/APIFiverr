@@ -13,6 +13,7 @@ const idServiceSchema = Joi.object().keys({
       )
     ),
 });
+
 const serviceSchema = Joi.object().keys({
   title: Joi.string()
     .max(100)
@@ -44,16 +45,6 @@ const serviceSchema = Joi.object().keys({
 });
 
 const newServiceCommentSchema = Joi.object().keys({
-  idUser: Joi.number()
-    .positive()
-    .required()
-    .greater(0)
-    .error(
-      generateError(
-        'El campo idUser debe exisitir y debe ser un entero mayor que 0 ',
-        400
-      )
-    ),
   content: Joi.string()
     .required()
     .max(280)

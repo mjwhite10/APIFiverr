@@ -19,7 +19,7 @@ const loginUser = async (req, res, next) => {
         404
       );
     //Comparamos las passwords
-    const validPassword = checkPassword(password, user.password);
+    const validPassword = await checkPassword(password, user.password);
 
     //Si la password no es valida...
     if (!validPassword) throw generateError('La contraseña no es válida', 401);

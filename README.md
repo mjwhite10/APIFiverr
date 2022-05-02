@@ -11,12 +11,13 @@ mediante un fichero digital.
   * id
   * email \*
   * password \*
+  * role \*
   * name
-  * role
   * bio
   * avatar
   * createdAt
   * modifiedAt
+  * lastAuthUpdate
 
 * Tabla de servicios:
   * id
@@ -55,7 +56,7 @@ mediante un fichero digital.
 
 ### Endpoints de usuarios
 
-* `POST /users` - Registrar un usuario. ✅
+* `POST /users` - Registrar un usuario. ✅ ✅
 
   * Cabecera auth: No
   * Body:
@@ -66,7 +67,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `GET /users/:idUser` - Obtener un usuario en concreto. ✅
+* `GET /users/:idUser` - Obtener un usuario en concreto. ✅ ✅
 
   * Cabecera auth: Sí
   * Path Params:
@@ -75,7 +76,7 @@ mediante un fichero digital.
   
 &nbsp;
 
-* `POST /users/login` - Hacer login y retornar un token. ✅
+* `POST /users/login` - Hacer login y retornar un token. ✅ ✅
 
   * Cabecera auth: No
   * Body:
@@ -85,7 +86,7 @@ mediante un fichero digital.
   
 &nbsp;
 
-* `PUT /users/:idUser` - Editar el nombre, email, bio y avatar de un usuario. ✅
+* `PUT /users/:idUser` - Editar el nombre, email, bio y avatar de un usuario. ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -99,7 +100,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /users/:idUser/password` - Editar la contraseña de un usuario. ✅
+* `PUT /users/:idUser/password` - Editar la contraseña de un usuario. ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -111,7 +112,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /users/:idUser` - Eliminar un usuario. ✅
+* `DELETE /users/:idUser` - Eliminar un usuario. ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -122,18 +123,18 @@ mediante un fichero digital.
 
 ### Endpoints de servicios
 
-* `GET /services` - Obtener un listado de todos los servicios. ✅
+* `GET /services` - Obtener un listado de todos los servicios. ✅ ✅
 
   * Cabecera auth: No
   * Querystring:
     * search
-    * order
+    * order (title,status o category)
     * direction
   * Retorna:  info de todos los servicios.
 
   &nbsp;
 
-* `GET /services/:idService` - Obtener un servicio/necesidad en concreto ✅
+* `GET /services/:idService` - Obtener un servicio/necesidad en concreto ✅ ✅
 
   * Cabecera auth: No
   * Path Params:

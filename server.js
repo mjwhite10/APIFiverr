@@ -52,19 +52,19 @@ app.post('/users/login', loginUser);
 app.put('/users/:idUser', isUser, editUser);
 app.put('/users/:idUser/password', isUser, editUserPassword);
 app.delete('/users/:idUser', isUser, isAdmin, deleteUser);
-
-//Services endpoints
+//Services endpoints//
+//Services
 app.get('/services', listServices);
 app.get('/services/:idService', getService);
 app.post('/services', isUser, newService);
 app.put('/services/:idService', isUser, editService);
 app.delete('/services/:idService', isUser, deleteService);
-//Service solutions
+//Services solutions
 app.post('/services/:idService/solution', isUser, newServiceSolution);
 app.get('/services/:idService/solution', isUser, getServiceSolution);
 app.put('/services/:idService/solution', isUser, editServiceSolution);
 app.delete('/services/:idService/solution', isUser, deleteServiceSolution);
-//Service comments
+//Services comments
 app.post('/services/:idService/comments', isUser, newServiceComment);
 app.get('/services/:idService/comments/:idComment', getServiceComment);
 app.get('/services/:idService/comments', listServiceComments);

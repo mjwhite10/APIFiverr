@@ -17,10 +17,10 @@ const getUser = async (req, res, next) => {
       throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
 
     const userInfo = {
-      name: user.name,
-      email: user.email,
-      avatar: user.avatar,
-      bio: user.bio,
+      Name: user.name,
+      Email: user.email,
+      Avatar: user.avatar,
+      Bio: user.bio,
     };
 
     res.send({

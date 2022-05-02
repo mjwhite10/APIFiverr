@@ -13,7 +13,7 @@ const newServiceComment = async (req, res, next) => {
     await newServiceCommentSchema.validateAsync(req.body);
 
     const { idService } = req.params;
-    const { idUser, content } = req.body;
+    const { content } = req.body;
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
@@ -27,7 +27,7 @@ const newServiceComment = async (req, res, next) => {
         406
       );
     //Generamos el comentario
-    const id = await createServiceComment(idUser, idService, content);
+    const id = await createServiceComment(req.auth.id, idService, content);
 
     res.send({
       status: 'Ok',

@@ -118,6 +118,7 @@ const deleteServiceById = async (idService) => {
       WHERE id = ?`,
       [idService]
     );
+    await connection.query(`COMMIT`);
   } catch (error) {
     await connection.query(`ROLLBACK`);
   } finally {
@@ -274,6 +275,24 @@ const createServiceComment = async (idUser, idService, content) => {
   }
 };
 
+const editServiceCommentById = async (idService, idComment, content) => {
+  let connection;
+  try {
+    connection = await getConnection();
+
+    const [newServiceComment] = await connection.query(
+      `
+      UPDATE services_comments 
+      SET content = ?
+      WHERE idService = ? AND idComment = ?
+    `,
+      [content, idService, idComment]
+    );
+    return newServiceComment.insertId;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 const getServiceCommentById = async (idComment, idService) => {
   let connection;
   try {
@@ -341,4 +360,5 @@ module.exports = {
   deleteServiceSolutionById,
   getServiceCommentById,
   getServiceComments,
+  editServiceCommentById,
 };

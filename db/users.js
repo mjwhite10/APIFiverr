@@ -6,12 +6,12 @@ const createUser = async (email, password, name) => {
   try {
     connection = await getConnection();
 
-    const passwordHash = encryptPassword(password);
+    const passwordHash = await encryptPassword(password);
     //Crear el usuario
     const [newUser] = await connection.query(
       `
-    INSERT INTO users (email,password,name)
-    VALUES (?,?,?)`,
+    INSERT INTO users (email,password,name,createdAt,lastAuthUpdate)
+    VALUES (?,?,?,UTC_TIMESTAMP,UTC_TIMESTAMP)`,
       [email, passwordHash, name]
     );
 
@@ -48,9 +48,10 @@ const getUserById = async (id) => {
 
     const [user] = await connection.query(
       `
-    SELECT id,email,password,name,bio,avatar,role,lastAuthUpdate
-    FROM users
-    WHERE id = ?`,
+      SELECT id,email,password,name,bio,avatar,role,
+      lastAuthUpdate,createdAt,modifiedAt
+      FROM users
+      WHERE id = ?`,
       [id]
     );
 
@@ -76,30 +77,35 @@ const editUserById = async (email, name, bio, avatar, id) => {
     if (connection) connection.release();
   }
 };
+
 const deleteUserById = async (id) => {
   let connection;
 
   try {
     connection = await getConnection();
     await connection.query(`START TRANSACTION`);
+    //Borramos todos los comentarios del usuario
     await connection.query(
       `
     DELETE FROM services_comments
     WHERE idUser = ?`,
       [id]
     );
+    //Borramos todas las soluciones asignadas al usuario
     await connection.query(
       `
     DELETE FROM solutions
     WHERE idUser = ?`,
       [id]
     );
+    //Borramos cualquier necesidad que haya generado el usuario
     await connection.query(
       `
     DELETE FROM services
     WHERE idUser = ?`,
       [id]
     );
+    //Borramos al usuario
     await connection.query(
       `
       DELETE FROM users 
@@ -107,6 +113,7 @@ const deleteUserById = async (id) => {
     `,
       [id]
     );
+    await connection.query(`COMMIT`);
   } catch (error) {
     await connection.query(`ROLLBACK`);
   } finally {

@@ -19,3 +19,7 @@
 * Abrir un terminal de consola
 * Abrir el directorio de la aplicación
 * Ejecutar el siguiente comando: `npm run dev`
+
+##### *Nota: Existe un directorio llamado testing con archivos y fotos para interactuar con la API
+
+***

@@ -355,6 +355,20 @@ const getServiceComments = async (idService) => {
     if (connection) connection.release();
   }
 };
+const getServiceCategories = async () => {
+  let connection;
+  try {
+    connection = await getConnection();
+    const [result] = await connection.query(
+      `
+      SELECT description AS Categories
+      FROM services_categories`
+    );
+    return result;
+  } finally {
+    if (connection) connection.release();
+  }
+};
 module.exports = {
   searchServices,
   getServiceSolutionByIdService,
@@ -371,4 +385,5 @@ module.exports = {
   getServiceCommentById,
   getServiceComments,
   editServiceCommentById,
+  getServiceCategories,
 };

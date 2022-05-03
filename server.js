@@ -28,6 +28,7 @@ const {
   listServiceComments,
   editServiceComment,
   deleteServiceComment,
+  listServicesCategories,
 } = require('./controllers/services');
 
 //Middlewares
@@ -74,6 +75,8 @@ app.delete(
   isUser,
   deleteServiceComment
 );
+//Services categories
+app.get('/services/categories', listServicesCategories);
 
 //Not found Middleware
 app.use((req, res) => {

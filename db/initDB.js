@@ -208,9 +208,9 @@ async function main() {
       const info = faker.lorem.sentence();
       const service = await getRandomFile();
       //Generamos el nombre único con el que se guardará el archivo
-      const fileName = `${uuid.v4()}${path.extname(service)}`;
+      const serviceName = `${uuid.v4()}${path.extname(service)}`;
       //Copiamos y renombramos el archivo con el uuid
-      await fs.copyFile(service, path.join(uploadServicesPath, fileName));
+      await fs.copyFile(service, path.join(uploadServicesPath, serviceName));
       const idCategory = Math.floor(
         1 + Math.random() * categories[0]['COUNT(*)']
       );
@@ -218,8 +218,8 @@ async function main() {
       const [result] = await connection.query(
         `
         INSERT INTO services (idUser,title,info,file,idStatus,idCategory,createdAt)
-        VALUES (?,?,?,?,1,?,UTC_TIMESTAMP)`,
-        [idUser, title, info, fileName, idCategory]
+        VALUES (?,?,?,?,2,?,UTC_TIMESTAMP)`,
+        [idUser, title, info, serviceName, idCategory]
       );
 
       //COMENTARIOS
@@ -237,6 +237,31 @@ async function main() {
           [idUserComment, result.insertId, content]
         );
       }
+
+      //SOLUCION
+      let idUserSolution;
+      do {
+        idUserSolution = Math.floor(1 + Math.random() * users[0]['COUNT(*)']);
+      } while (idUserSolution == idUser);
+
+      const solution = await getRandomFile();
+      //Generamos el nombre único con el que se guardará el archivo
+      const solutionName = `${uuid.v4()}${path.extname(solution)}`;
+      //Copiamos y renombramos el archivo con el uuid
+      await fs.copyFile(service, path.join(uploadSolutionsPath, solutionName));
+
+      await connection.query(
+        `
+        INSERT INTO services_solution (idUser,idService,file,startedAt)
+        VALUES (?,?,?,UTC_TIMESTAMP)`,
+        [
+          idUserSolution,
+          result.insertId,
+          solutionName,
+          solutionName,
+          idCategory,
+        ]
+      );
     }
 
     console.log('Fin del script');

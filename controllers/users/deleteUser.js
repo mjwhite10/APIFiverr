@@ -1,6 +1,6 @@
 const path = require('path');
 const { deleteUserById, getUserById } = require('../../db/users');
-const { generateError, deleteFile } = require('../../helpers');
+const { deleteFile } = require('../../helpers');
 const { idUserSchema } = require('../../validators/userValidators');
 
 const deleteUser = async (req, res, next) => {
@@ -12,8 +12,6 @@ const deleteUser = async (req, res, next) => {
 
     //Verificamos que el usuario existe
     const user = await getUserById(idUser);
-    if (!user)
-      throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
 
     //Si tenia guardado un avatar lo eliminamos
     if (user.avatar) {

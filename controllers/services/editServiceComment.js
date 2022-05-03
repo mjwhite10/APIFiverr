@@ -16,8 +16,6 @@ const editServiceComment = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
     //Comprobamos que el servicio esta Unassigned
     if (service.status !== 'Unassigned')

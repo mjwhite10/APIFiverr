@@ -1,5 +1,4 @@
 const { getUserById } = require('../../db/users');
-const { generateError } = require('../../helpers');
 const { idUserSchema } = require('../../validators/userValidators');
 
 const getUser = async (req, res, next) => {
@@ -12,10 +11,7 @@ const getUser = async (req, res, next) => {
     //Seleccionamos el usuario por id
     const user = await getUserById(idUser);
 
-    //Si el usuario no existe...
-    if (!user)
-      throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
-
+    //Filtramos la información devuelta
     const userInfo = {
       Name: user.name,
       Email: user.email,

@@ -15,8 +15,6 @@ const newService = async (req, res, next) => {
 
     //Comprobamos que la categoría existe
     const idCategory = await getIdCategory(category);
-    if (!idCategory)
-      throw generateError(`La categoria ${category} no existe`, 404);
 
     //Comprobamos si se adjuntó algún fichero
     let fileName;

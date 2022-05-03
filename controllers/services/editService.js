@@ -25,11 +25,6 @@ const editService = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(
-        `No existe ningún servicio con el id: ${idService}`,
-        404
-      );
 
     //Comprobamos que el usuario sea el mismo o admin
     if (req.auth.id !== service.idUser && req.auth.role !== 'admin')
@@ -37,8 +32,6 @@ const editService = async (req, res, next) => {
 
     //Comprobamos que la categoría existe
     const idCategory = await getIdCategory(category);
-    if (!idCategory)
-      throw generateError(`La categoria ${category} no existe`, 404);
 
     //Comprobamos si se adjuntó algún fichero
     let fileName;

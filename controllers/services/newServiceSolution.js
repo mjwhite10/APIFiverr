@@ -13,8 +13,6 @@ const newServiceSolution = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
     //Comprobamos que el servicio no tiene asignada una solución
     const solution = await getServiceSolutionByIdService(idService);

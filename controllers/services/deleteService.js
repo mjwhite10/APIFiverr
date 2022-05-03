@@ -14,8 +14,6 @@ const deleteService = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
     //Comprobamos que el usuario que hace la peticció sea admin
     //o el usuario que creó el servicio

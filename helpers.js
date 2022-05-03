@@ -14,8 +14,8 @@ const generateError = (message, status) => {
 const checkPassword = async (password, encryptedPassword) => {
   //Comparamos las passwords
   const validPassword = await bcrypt.compare(password, encryptedPassword);
-
-  return validPassword;
+  //Si la password no es valida...
+  if (!validPassword) throw generateError('La contraseña no es válida', 401);
 };
 
 //Función que encripta una pasword

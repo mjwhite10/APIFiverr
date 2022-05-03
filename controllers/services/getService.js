@@ -1,5 +1,4 @@
 const { getServiceById } = require('../../db/services');
-const { generateError } = require('../../helpers');
 const { idServiceSchema } = require('../../validators/servicesValidators');
 
 const getService = async (req, res, next) => {
@@ -10,11 +9,7 @@ const getService = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(
-        `No existe ningún service con el id ${idService}`,
-        404
-      );
+
     //Filtramos de la info devuelta solo los parámetros más necesarios
     const serviceInfo = {
       User: service.user,

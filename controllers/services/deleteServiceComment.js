@@ -16,16 +16,9 @@ const deleteServiceComment = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
     //Comprobamos que existe el comentario
     const comment = await getServiceCommentById(idComment, idService);
-    if (!comment)
-      throw generateError(
-        `No existe ningún comentario con id ${idComment}`,
-        404
-      );
 
     //Comprobamos que el servicio no estaba finalizado
     if (service.status !== 'Completed')

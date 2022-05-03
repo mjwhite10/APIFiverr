@@ -26,8 +26,6 @@ const editServiceSolution = async (req, res, next) => {
 
     //Comprobamos que existe el servicio
     const service = await getServiceById(idService);
-    if (!service)
-      throw generateError(`No existe ningún servicio con id ${idService}`, 404);
 
     //Comprobamos que el servicio tiene asignada una solución
     const solution = await getServiceSolutionByIdService(idService);
@@ -38,7 +36,7 @@ const editServiceSolution = async (req, res, next) => {
       );
 
     //Comprobamos que el usuario es el que generó la solución
-    if (req.auth.id !== solution.idUser)
+    if (req.auth.id !== solution.idUser && req.auth.role !== 'admin')
       throw generateError(
         'No estas autorizado para modificar la solución',
         401

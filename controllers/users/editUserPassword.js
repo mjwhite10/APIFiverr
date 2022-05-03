@@ -25,14 +25,9 @@ const editUserPassword = async (req, res, next) => {
 
     //Comprobamos que el usuario existe
     const user = await getUserById(idUser);
-    if (!user)
-      throw generateError(`No existe ningún usuario con el id ${idUser}`, 404);
 
     //Verificamos que la password antigua sea correcta...
-    const validPassword = await checkPassword(oldPassword, user.password);
-
-    //Si la password no era valida...
-    if (!validPassword) throw generateError('La contraseña no es válida', 401);
+    await checkPassword(oldPassword, user.password);
 
     //Actualizamos la password
     await editUserPasswordById(idUser, newPassword);

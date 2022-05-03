@@ -1,3 +1,4 @@
+const { generateError } = require('../helpers');
 const { getConnection } = require('./getDB');
 
 const searchServices = async (search, orderBy, orderDirection) => {
@@ -60,6 +61,10 @@ const getServiceById = async (id) => {
         WHERE S.id = ?`,
       [id]
     );
+
+    if (!service[0])
+      throw generateError(`No existe ningún servicio con id ${id}`, 404);
+
     return service[0];
   } finally {
     if (connection) connection.release();
@@ -224,7 +229,6 @@ const deleteServiceSolutionById = async (idService) => {
     WHERE id = ?`,
       [idService]
     );
-    console.log('Paso 2');
     await connection.query(
       `
     DELETE FROM services_solution
@@ -250,7 +254,8 @@ const getIdCategory = async (category) => {
       `,
       [category]
     );
-
+    if (!idCategory[0])
+      throw generateError(`La categoria ${category} no existe`, 404);
     return idCategory[0];
   } finally {
     if (connection) connection.release();
@@ -297,7 +302,7 @@ const getServiceCommentById = async (idComment, idService) => {
   let connection;
   try {
     connection = await getConnection();
-    const [result] = await connection.query(
+    const [comment] = await connection.query(
       `
       SELECT SC.id, SC.content, U.name, SC.idUser, SC.idService, SC.createdAt, SC.modifiedAt
       FROM services_comments AS SC
@@ -306,7 +311,12 @@ const getServiceCommentById = async (idComment, idService) => {
       WHERE SC.id = ? AND SC.idService = ?`,
       [idComment, idService]
     );
-    return result[0];
+    if (!comment[0])
+      throw generateError(
+        `No existe ningún comentario con id ${idComment}`,
+        404
+      );
+    return comment[0];
   } finally {
     if (connection) connection.release();
   }

@@ -1,4 +1,4 @@
-const { encryptPassword } = require('../helpers');
+const { encryptPassword, generateError } = require('../helpers');
 const { getConnection } = require('./getDB');
 
 const createUser = async (email, password, name) => {
@@ -55,6 +55,9 @@ const getUserById = async (id) => {
       [id]
     );
 
+    //Si el usuario no existe...
+    if (!user[0])
+      throw generateError(`No existe ningún usuario con el id ${id}`, 404);
     return user[0];
   } finally {
     if (connection) connection.release();

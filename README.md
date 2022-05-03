@@ -143,7 +143,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services` - Crear un servicio/necesidad ✅
+* `POST /services` - Crear un servicio/necesidad ✅ ✅
 
   * Cabecera auth: Si
   * Body:
@@ -155,7 +155,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /services/:idService` - Editar un servicio/necesidad ✅
+* `PUT /services/:idService` - Editar un servicio/necesidad ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -169,7 +169,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /services/:idService` - Borrar un servicio/necesidad ✅
+* `DELETE /services/:idService` - Borrar un servicio/necesidad ✅ ✅
 
   * Cabecera auth: Si
   * Path Params
@@ -178,7 +178,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `POST /services/:idService/solution` - Crea una solución a una necesidad/servicio ✅
+* `POST /services/:idService/solution` - Crea una solución a una necesidad/servicio ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -189,7 +189,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `GET /services/:idService/solution` - Obtener la solución asignada a una necesidad/servicio ✅
+* `GET /services/:idService/solution` - Obtener la solución asignada a una necesidad/servicio ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -198,7 +198,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `PUT /services/:idService/solution` - Permite editar una solución ✅
+* `PUT /services/:idService/solution` - Permite editar una solución ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -210,7 +210,7 @@ mediante un fichero digital.
 
 &nbsp;
 
-* `DELETE /services/:idService/solution` - Eliminar una solución ✅
+* `DELETE /services/:idService/solution` - Eliminar una solución ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -219,7 +219,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `POST /services/:idService/comments` - Añade un comentario a una necesidad/servicio existente ✅
+* `POST /services/:idService/comments` - Añade un comentario a una necesidad/servicio existente ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -231,7 +231,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `GET /services/:idService/comments/:idComment` - Devuelve un sólo comentario ✅
+* `GET /services/:idService/comments/:idComment` - Devuelve un sólo comentario ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -241,7 +241,7 @@ mediante un fichero digital.
 
     &nbsp;
 
-* `GET /services/:idService/comments` - Obtener los comentarios de una necesidad/servicio existente ✅
+* `GET /services/:idService/comments` - Obtener los comentarios de una necesidad/servicio existente ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -249,7 +249,7 @@ mediante un fichero digital.
   * Retorna: mensaje con toda la info de los comentarios
 
   &nbsp;
-* `PUT /services/:idService/comments/:idComment` - Modificar un comentario
+* `PUT /services/:idService/comments/:idComment` - Modificar un comentario ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:
@@ -261,7 +261,7 @@ mediante un fichero digital.
 
   &nbsp;
 
-* `DELETE /services/:idService/comments/:idComment` - Eliminar un comentario ✅
+* `DELETE /services/:idService/comments/:idComment` - Eliminar un comentario ✅ ✅
 
   * Cabecera auth: Si
   * Path Params:

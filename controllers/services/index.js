@@ -13,6 +13,7 @@ const { listServiceComments } = require('./listServiceComments');
 const { editServiceComment } = require('./editServiceComment');
 const { deleteServiceComment } = require('./deleteServiceComment');
 const { listServicesCategories } = require('./listServicesCategories');
+const { listServicesStatus } = require('./listServicesStatus');
 module.exports = {
   listServices,
   getService,
@@ -29,4 +30,5 @@ module.exports = {
   editServiceComment,
   deleteServiceComment,
   listServicesCategories,
+  listServicesStatus,
 };

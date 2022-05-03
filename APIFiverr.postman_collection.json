@@ -42,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"manublanco@hackaboss.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"raw": "{\r\n    \"email\": \"manu@hackaboss.com\",\r\n    \"password\": \"node\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,19 +120,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTY3NDQyLCJleHAiOjE2NTQxNTk0NDJ9.hpgHwbC3jnyqfCPPxGIwh-P5FlCKPku2mySnCXFbndU",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg1MDcwLCJleHAiOjE2NTQxNzcwNzB9.2DDtxsSaDYd0OM6hcBfvP9SW2_1sFxidlgqkF7hb20A",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "localhost:3000/users/12",
+							"raw": "localhost:3000/users/2",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"users",
-								"12"
+								"2"
 							]
 						}
 					},
@@ -170,7 +170,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE2NTE1NjcxOTAsImV4cCI6MTY1NDE1OTE5MH0.DZTxpWEPamDmqpCJN_brKrBe0AeR-4-v1TqQqNw0cY0",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE2NTE1ODQ1MjMsImV4cCI6MTY1NDE3NjUyM30.NKlnJphBxvtjFqqfRXhYr739UPTrp65ZvI94QbBXjN4",
 								"type": "text"
 							}
 						],
@@ -262,14 +262,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:3000/services/2",
+							"raw": "localhost:3000/services/1",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"services",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -282,7 +282,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTY4MjExLCJleHAiOjE2NTQxNjAyMTF9.2m4JfOF_BdKaO2NUq54Yxzk_ywWxrEwprzIQ8s30SJQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg0OTUyLCJleHAiOjE2NTQxNzY5NTJ9.55aBOEewQZeQlMJLNz6laoq6Gxfsmvwd-ppM1vwfjMQ",
 								"type": "text"
 							}
 						],
@@ -331,7 +331,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTY4MjExLCJleHAiOjE2NTQxNjAyMTF9.2m4JfOF_BdKaO2NUq54Yxzk_ywWxrEwprzIQ8s30SJQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg0OTUyLCJleHAiOjE2NTQxNzY5NTJ9.55aBOEewQZeQlMJLNz6laoq6Gxfsmvwd-ppM1vwfjMQ",
 								"type": "text"
 							}
 						],
@@ -361,14 +361,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/services/2",
+							"raw": "localhost:3000/services/6",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"services",
-								"2"
+								"6"
 							]
 						}
 					},
@@ -381,19 +381,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTY4MjExLCJleHAiOjE2NTQxNjAyMTF9.2m4JfOF_BdKaO2NUq54Yxzk_ywWxrEwprzIQ8s30SJQ",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg0OTUyLCJleHAiOjE2NTQxNzY5NTJ9.55aBOEewQZeQlMJLNz6laoq6Gxfsmvwd-ppM1vwfjMQ",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "localhost:3000/services/3",
+							"raw": "localhost:3000/services/6",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"services",
-								"3"
+								"6"
 							]
 						}
 					},
@@ -406,19 +406,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE2NTE1Njg0MjYsImV4cCI6MTY1NDE2MDQyNn0.BAkWHTP40SaJUEqhXJiY7u_XZ6ERpEZEoqEEkFa0W38",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg0OTUyLCJleHAiOjE2NTQxNzY5NTJ9.55aBOEewQZeQlMJLNz6laoq6Gxfsmvwd-ppM1vwfjMQ",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "localhost:3000/services/3/solution",
+							"raw": "localhost:3000/services/1/solution",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"services",
-								"3",
+								"1",
 								"solution"
 							]
 						}
@@ -468,7 +468,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsInJvbGUiOiJub3JtYWwiLCJpYXQiOjE2NTE1Njg0MjYsImV4cCI6MTY1NDE2MDQyNn0.BAkWHTP40SaJUEqhXJiY7u_XZ6ERpEZEoqEEkFa0W38",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjUxNTg1MDcwLCJleHAiOjE2NTQxNzcwNzB9.2DDtxsSaDYd0OM6hcBfvP9SW2_1sFxidlgqkF7hb20A",
 								"type": "text"
 							}
 						],
@@ -483,19 +483,20 @@
 								{
 									"key": "solutionFile",
 									"type": "file",
-									"src": "/C:/Users/Equipo/Desktop/Portal de necesidades.pdf"
+									"src": [],
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/services/3/solution",
+							"raw": "localhost:3000/services/1/solution",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"services",
-								"3",
+								"1",
 								"solution"
 							]
 						}
@@ -669,6 +670,43 @@
 								"3",
 								"comments",
 								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Service Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Service Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/services/status",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"services",
+								"status"
 							]
 						}
 					},

@@ -268,3 +268,21 @@ mediante un fichero digital.
     * idService
     * idComment
   * Retorna: mensaje que se eliminó el comentario
+
+  &nbsp;
+
+* `GET /services/categories` - Devuelve las diferentes categorias con las que se clasifican los servicios ✅ ✅
+
+  * Cabecera auth: No
+  * Path Params:
+  * Retorna: mensaje con todos las descripciones existentes
+
+    &nbsp;
+
+* `GET /services/status` - Devuelve las diferentes estados por los que pasa un  servicio ✅ ✅
+
+  * Cabecera auth: No
+  * Path Params:
+  * Retorna: mensaje con todos los estados disponibles
+
+      &nbsp;

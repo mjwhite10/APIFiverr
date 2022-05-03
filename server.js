@@ -29,11 +29,13 @@ const {
   editServiceComment,
   deleteServiceComment,
   listServicesCategories,
+  listServicesStatus,
 } = require('./controllers/services');
 
 //Middlewares
 const { isUser } = require('./middlewares/isUser');
 const { isAdmin } = require('./middlewares/isAdmin');
+
 const app = express();
 app.use(express.json());
 
@@ -76,8 +78,9 @@ app.delete(
   deleteServiceComment
 );
 //Services categories
-app.get('/services/categories', listServicesCategories);
-
+app.get('/categories', listServicesCategories);
+//Services status
+app.get('/status', listServicesStatus);
 //Not found Middleware
 app.use((req, res) => {
   console.warn('Error 404 Not Found');

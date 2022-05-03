@@ -10,7 +10,7 @@
 * Abrir un terminal SQL y ejecutar el archivo fiverr.sql
 * Abrir un terminal de consola
 * Abrir el directorio de la aplicación
-* Ejecutar el siguiente comando: `node .\db\initDB.js`
+* Ejecutar el siguiente comando: `node .\db\initDB.js` (Para así generar los archivos necesarios en local)
 
 ### 3º Lanzar la aplicación
 * Crear un archivo .env, basandose en el .env.example existente. Es importante que los credenciales SQL sean los del servidor local donde se ejecutará la API

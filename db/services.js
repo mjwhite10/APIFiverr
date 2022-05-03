@@ -283,8 +283,8 @@ const editServiceCommentById = async (idService, idComment, content) => {
     const [newServiceComment] = await connection.query(
       `
       UPDATE services_comments 
-      SET content = ?
-      WHERE idService = ? AND idComment = ?
+      SET content = ?, modifiedAt = UTC_TIMESTAMP
+      WHERE idService = ? AND id = ?
     `,
       [content, idService, idComment]
     );

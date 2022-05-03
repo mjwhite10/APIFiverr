@@ -94,7 +94,7 @@ const deleteUserById = async (id) => {
     //Borramos todas las soluciones asignadas al usuario
     await connection.query(
       `
-    DELETE FROM solutions
+    DELETE FROM services_solution
     WHERE idUser = ?`,
       [id]
     );
@@ -115,6 +115,7 @@ const deleteUserById = async (id) => {
     );
     await connection.query(`COMMIT`);
   } catch (error) {
+    console.log(error);
     await connection.query(`ROLLBACK`);
   } finally {
     if (connection) connection.release();

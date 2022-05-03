@@ -23,7 +23,9 @@
 ;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
 ;
+DROP SCHEMA IF EXISTS fiverr;
 CREATE DATABASE fiverr;
+USE fiverr;
 --
 -- Table structure for table `services`
 --
@@ -70,7 +72,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     2,
     1,
     'commodi',
@@ -81,7 +83,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     3,
     2,
     'in',
@@ -92,7 +94,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     4,
     12,
     'nobis',
@@ -103,7 +105,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     5,
     8,
     'labore',
@@ -140,14 +142,14 @@ LOCK TABLES `services_categories` WRITE;
 ;
 INSERT INTO `services_categories`
 VALUES (1, 'Graphic arts and design'),
-(2, 'Digital marketing'),
-(3, 'Writing and translation'),
-(4, 'Video and animation'),
-(5, 'Music and sound'),
-(6, 'Programming and technology'),
-(7, 'Business'),
-(8, 'Lifestyle'),
-(9, 'Trends');
+  (2, 'Digital marketing'),
+  (3, 'Writing and translation'),
+  (4, 'Video and animation'),
+  (5, 'Music and sound'),
+  (6, 'Programming and technology'),
+  (7, 'Business'),
+  (8, 'Lifestyle'),
+  (9, 'Trends');
 /*!40000 ALTER TABLE `services_categories` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -189,7 +191,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     2,
     'Mollitia dolorum quia.',
     5,
@@ -197,7 +199,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     3,
     'Et omnis impedit eum.',
     11,
@@ -205,7 +207,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     4,
     'Deserunt amet debitis autem nihil est quae accusantium totam.',
     8,
@@ -213,7 +215,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     5,
     'Voluptatem nulla deserunt dolores.',
     11,
@@ -221,7 +223,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     6,
     'Sed distinctio assumenda.',
     7,
@@ -229,7 +231,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     7,
     'Nihil eos deleniti tenetur repellat.',
     10,
@@ -237,7 +239,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     8,
     'Autem ut veritatis.',
     6,
@@ -245,7 +247,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     9,
     'Provident repellat ducimus consequatur.',
     9,
@@ -253,7 +255,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     10,
     'Occaecati temporibus quidem ut atque.',
     12,
@@ -261,7 +263,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     11,
     'Distinctio in ut deserunt et ad nemo.',
     6,
@@ -269,7 +271,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     12,
     'In beatae omnis officia vero dolorum.',
     11,
@@ -277,7 +279,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     13,
     'Dolore esse omnis.',
     2,
@@ -285,7 +287,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     14,
     'Tempore dolores omnis et amet eligendi.',
     12,
@@ -293,7 +295,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     15,
     'Ullam laudantium minus.',
     9,
@@ -301,7 +303,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     16,
     'Quis repudiandae officiis quos et repellat est at.',
     4,
@@ -309,7 +311,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     17,
     'Dolores atque commodi molestiae.',
     1,
@@ -317,7 +319,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     18,
     'Culpa suscipit quibusdam molestiae culpa eaque natus qui.',
     6,
@@ -325,7 +327,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     19,
     'Aperiam est corrupti exercitationem nesciunt ea eligendi.',
     10,
@@ -333,7 +335,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     20,
     'Beatae vero ducimus non molestiae rerum tempora adipisci.',
     6,
@@ -341,7 +343,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     21,
     'Sit temporibus illum cumque voluptatibus molestiae voluptatum autem.',
     11,
@@ -349,7 +351,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     22,
     'Possimus magni esse sed porro voluptatem sequi velit consequuntur modi.',
     5,
@@ -357,7 +359,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     23,
     'Totam neque illum aliquam dolores et repudiandae.',
     1,
@@ -365,7 +367,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     24,
     'Modi voluptatum laborum distinctio.',
     9,
@@ -373,7 +375,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     25,
     'Voluptatum ad aperiam incidunt.',
     6,
@@ -381,7 +383,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     26,
     'Excepturi quidem repudiandae eum dignissimos recusandae consequuntur.',
     4,
@@ -389,7 +391,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     27,
     'Distinctio beatae accusamus itaque atque odit aliquid maiores.',
     8,
@@ -397,7 +399,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     28,
     'Perferendis accusantium consectetur et fuga.',
     10,
@@ -405,7 +407,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     29,
     'Perspiciatis ex fugiat harum aut aperiam.',
     4,
@@ -413,7 +415,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     30,
     'Omnis repellat exercitationem impedit placeat est.',
     5,
@@ -421,7 +423,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     31,
     'Eligendi dolor eos et rerum neque.',
     12,
@@ -429,7 +431,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     32,
     'Qui enim cum fugiat occaecati cupiditate.',
     11,
@@ -437,7 +439,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     33,
     'Corporis nihil totam ex nihil excepturi.',
     11,
@@ -445,7 +447,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     34,
     'Expedita reprehenderit delectus.',
     11,
@@ -453,7 +455,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     35,
     'Impedit perferendis nesciunt sit.',
     11,
@@ -461,7 +463,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     36,
     'Cum suscipit neque est sit et.',
     9,
@@ -469,7 +471,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     37,
     'Modi molestias quam provident molestiae nihil dolores repellat aut ipsum.',
     6,
@@ -477,7 +479,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     38,
     'Hic eum necessitatibus iste.',
     4,
@@ -485,7 +487,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     39,
     'Ut itaque perspiciatis eius facere qui cum ipsum rerum unde.',
     3,
@@ -493,7 +495,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     40,
     'Itaque quis voluptatum cum at autem modi sed accusamus.',
     6,
@@ -501,7 +503,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     41,
     'Quo in deserunt dicta fugiat et minus consequatur nulla ut.',
     1,
@@ -509,7 +511,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     42,
     'Exercitationem aut voluptatem quis.',
     2,
@@ -517,7 +519,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     43,
     'Rerum ut consequuntur doloribus eaque nemo.',
     12,
@@ -525,7 +527,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     44,
     'Saepe eaque aut placeat vitae est quidem.',
     10,
@@ -533,7 +535,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     45,
     'Eius soluta molestias.',
     10,
@@ -541,7 +543,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     46,
     'Dolores quaerat quia aut harum ut ullam.',
     1,
@@ -549,7 +551,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     47,
     'Ut ab quasi sapiente.',
     4,
@@ -557,7 +559,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     48,
     'Earum consectetur aut aut sit numquam.',
     3,
@@ -565,7 +567,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     49,
     'Quia ut harum nihil harum.',
     2,
@@ -573,7 +575,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     50,
     'Maxime quis ad ut blanditiis delectus numquam autem.',
     2,
@@ -581,7 +583,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     51,
     'Voluptate voluptatibus veniam dignissimos nihil officia ipsa.',
     2,
@@ -589,7 +591,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     52,
     'Aliquid facilis enim aut aliquam debitis ullam blanditiis.',
     6,
@@ -597,7 +599,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     53,
     'A maxime necessitatibus fuga.',
     12,
@@ -605,7 +607,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     54,
     'Ut doloremque illo ut qui accusantium ut vitae corrupti dolor.',
     1,
@@ -613,7 +615,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     55,
     'Itaque minima ea asperiores dolorem.',
     9,
@@ -621,7 +623,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     56,
     'Atque reiciendis qui iure in id pariatur sequi a.',
     1,
@@ -629,7 +631,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     57,
     'Velit officia eveniet asperiores ad.',
     12,
@@ -637,7 +639,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     58,
     'Iste doloremque porro blanditiis placeat quia et cum.',
     5,
@@ -645,7 +647,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     59,
     'Sit et omnis sunt porro nihil facere est aut ut.',
     1,
@@ -653,7 +655,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     60,
     'Veniam hic molestias laudantium inventore sequi veritatis quasi.',
     9,
@@ -661,7 +663,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     61,
     'Sunt maxime eaque voluptatem.',
     6,
@@ -669,7 +671,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     62,
     'Harum hic est vitae quo officia saepe error quam facilis.',
     3,
@@ -677,7 +679,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     63,
     'Eos fuga voluptatem iste.',
     7,
@@ -685,7 +687,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     64,
     'Facere ut sit quo omnis qui iste esse.',
     3,
@@ -693,7 +695,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     65,
     'Ut nobis eveniet vitae autem repudiandae dolorum mollitia aliquid.',
     3,
@@ -701,7 +703,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     66,
     'Odio sequi quia impedit deserunt nesciunt et earum.',
     3,
@@ -709,7 +711,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     67,
     'Distinctio dolor eveniet dolores quas eum id veritatis.',
     4,
@@ -717,7 +719,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     68,
     'Cum ut dignissimos qui.',
     4,
@@ -725,7 +727,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     69,
     'Et omnis repellendus rem sit sunt nam natus quos ut.',
     2,
@@ -733,7 +735,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     70,
     'Nobis provident quaerat quasi non nihil sed.',
     4,
@@ -741,7 +743,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     71,
     'Dolorem qui rerum vel minima delectus repudiandae in.',
     3,
@@ -749,7 +751,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     72,
     'Dolor rerum eum harum similique fugiat laudantium ut numquam sed.',
     7,
@@ -757,7 +759,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     73,
     'Dolor rerum molestiae rem quasi ut.',
     7,
@@ -765,7 +767,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     74,
     'Ducimus architecto architecto sequi praesentium et.',
     1,
@@ -773,7 +775,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     75,
     'Molestiae ut illo omnis sit.',
     8,
@@ -822,7 +824,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     2,
     2,
     3,
@@ -830,7 +832,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     3,
     3,
     3,
@@ -838,7 +840,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     4,
     4,
     3,
@@ -846,7 +848,7 @@ VALUES (
     '2022-05-03 10:20:31',
     NULL
   ),
-(
+  (
     5,
     5,
     5,
@@ -880,8 +882,8 @@ LOCK TABLES `services_status` WRITE;
 ;
 INSERT INTO `services_status`
 VALUES (1, 'Unassigned'),
-(2, 'Assigned'),
-(3, 'Completed');
+  (2, 'Assigned'),
+  (3, 'Completed');
 /*!40000 ALTER TABLE `services_status` ENABLE KEYS */
 ;
 UNLOCK TABLES;
@@ -928,7 +930,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     2,
     'manu@hackaboss.com',
     '$2b$08$QhaoP/slOWSG1deOKF1WkudfX9mPqFSE9bVYezwEJ/GBJv.rqs5nO',
@@ -940,7 +942,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     3,
     'Florencia.Palacios6@yahoo.com',
     '$2b$08$zSyO/BItbbNar1P/vazWlOcSaIXfz40EkGZmvXCyXdDXpWBvG0d3C',
@@ -952,7 +954,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     4,
     'Esteban_Olivo@yahoo.com',
     '$2b$08$4K6rrF1Y9DEHc.yd378iR.id2AQw1FCmVf/mWbybvnSzzTlMrbFwG',
@@ -964,7 +966,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     5,
     'Mnica_Griego12@gmail.com',
     '$2b$08$nuqQUbOAQEb9G808ais1/eNfHtvEH.PHLJ7HFgMbmjXldDoL7M5WG',
@@ -976,7 +978,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     6,
     'Teresa_Castillo19@gmail.com',
     '$2b$08$RXl/UHwMNZE97qCJO7E.i.hlg6RZOB7fq0Ilq7ENPl33HtlfgtgH.',
@@ -988,7 +990,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     7,
     'Mario17@gmail.com',
     '$2b$08$awlLHK05c7IKSqpqy9vk.et8k750kUKPIzMzR/TtLPuBKDKJYX6v2',
@@ -1000,7 +1002,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     8,
     'Alicia18@gmail.com',
     '$2b$08$8RHoeqIo9CggXvvFvXfOFu2aAASZEbRe1z50TIbiXng2LMiR3VXsa',
@@ -1012,7 +1014,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     9,
     'Francisca.Segura@yahoo.com',
     '$2b$08$cgobawvMTI1aBcj7yQ4Ut.lN/oV6l5irdzQK35r3gtKpHbXixQ.9K',
@@ -1024,7 +1026,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     10,
     'Gregorio.Bueno@yahoo.com',
     '$2b$08$qV0m.m/h0w7PAyqyCxUjYO.5d8NqGwI34PvOLI.xRSKjPhKM7RPJW',
@@ -1036,7 +1038,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     11,
     'Andrs_Gil94@hotmail.com',
     '$2b$08$1nvocthRaTuJFam0Esgw6Op3CHvv81ETQdN/14HVFpopV3ZZkp3Aa',
@@ -1048,7 +1050,7 @@ VALUES (
     '2022-05-03 10:20:31',
     '2022-05-03 10:20:31'
   ),
-(
+  (
     12,
     'Marcela_Parra20@yahoo.com',
     '$2b$08$GEXm0kajKZPX4rrvhou2PeXsAhXZmNVL6pcBS5SDBlNHXrdXmD2va',

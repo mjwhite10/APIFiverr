@@ -1,15 +1,15 @@
 # INSTRUCCIONES DE INSTALACIÓN
 
-### 1º Instalar dependecias:
+### 1º Instalar dependecias
 
 * Abrir un terminal de consola
 * Abrir el directorio de la aplicación
 * Ejecutar el siguiente comando: `npm i`
 
-### 2º Generar la Base de datos:
+### 2º Generar la Base de datos
 
 * Abrir el directorio de la aplicación
-* Si es la primera vez que vamos a desplegar la API: abrir un terminal SQL y ejecutar el archivo `./db/fiverr.sql`
+* Ejecutar el archivo sql `./db/fiverr.sql`
 * Abrir un terminal de consola
 * Ejecutar el siguiente comando: `node ./db/initDB.js` (Para así generar los archivos necesarios en local)
 

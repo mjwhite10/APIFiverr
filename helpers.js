@@ -80,13 +80,11 @@ const getRandomAvatar = async () => {
 
 //Función que devuelve un fichero random
 const getRandomFile = async () => {
-  let serviceFiles = await fs.readdir(
-    path.join(__dirname, '/testing/services_files')
-  );
+  let serviceFiles = await fs.readdir(path.join(__dirname, '/testing/files'));
 
   let file = path.join(
     __dirname,
-    `/testing/services_files/${
+    `/testing/files/${
       serviceFiles[Math.floor(Math.random() * serviceFiles.length)]
     }`
   );
